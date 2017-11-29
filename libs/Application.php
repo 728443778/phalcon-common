@@ -3,7 +3,7 @@
 namespace app\common\libs;
 
 use app\models\User;
-use app\traits\Services;
+use app\common\traits\Services;
 use Phalcon\DiInterface;
 use sevenUtils\resources\Client;
 
@@ -13,7 +13,7 @@ class Application extends \Phalcon\Mvc\Application
     use Services;
 
     /**
-     * @var \app\components\User
+     * @var \app\common\components\User
      */
     public $user;
 
@@ -27,7 +27,7 @@ class Application extends \Phalcon\Mvc\Application
     public function __construct(DiInterface $dependencyInjector = null)
     {
         parent::__construct($dependencyInjector);
-        $this->user = new \app\components\User();
+        $this->user = new \app\common\components\User();
         self::$app = $this;
     }
 
