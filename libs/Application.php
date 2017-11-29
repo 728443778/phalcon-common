@@ -2,7 +2,6 @@
 
 namespace app\common\libs;
 
-use app\models\User;
 use app\common\traits\Services;
 use Phalcon\DiInterface;
 use sevenUtils\resources\Client;
