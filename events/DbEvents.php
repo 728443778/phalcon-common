@@ -20,10 +20,8 @@ class DbEvents
     public function __construct()
     {
         $this->_profiler = new Profiler();
-//        $formaater = new \Phalcon\Logger\Formatter\Line('%message%');
         $application  = Application::getApp();
         $this->_logger = $application->getDI()->getShared('debug_logger');
-//        $this->_logger->setFormatter($formaater);
     }
 
     public function beforeQuery($event, $connection)
@@ -46,31 +44,79 @@ class DbEvents
         return $this->_profiler;
     }
 
+    /**
+     * @param $event \Phalcon\Events\Event
+     * @param $connection \Phalcon\Db\Adapter\Pdo\Mysql
+     */
     public function beginTransaction($event, $connection)
     {
-        $this->_logger->debug('start transaction:');
+        $id = $connection->getConnectionId();
+        $key = json_encode([
+            'connection_id' => $id,
+            'level' => $connection->getTransactionLevel()
+        ]);
+        \app\common\events\Profiler::getInstance()->start($key);
+        $this->_logger->debug('start transaction:' . $key);
     }
 
+    /**
+     * @param $event \Phalcon\Events\Event
+     * @param $connection \Phalcon\Db\Adapter\Pdo\Mysql
+     */
     public function commitTransaction($event, $connection)
     {
-        $this->_logger->debug('commit transaction');
+        $id = $connection->getConnectionId();
+        $key = json_encode([
+            'connection_id' => $id,
+            'level' => $connection->getTransactionLevel()
+        ]);
+        $result = \app\common\events\Profiler::getInstance()->end($key);
+        $this->_logger->debug('commit transaction:');
+        if ($result) {
+            $this->_logger->debug($key . '=>' . json_encode($result));
+        }
     }
 
+    /**
+     * @param $event \Phalcon\Events\Event
+     * @param $connection \Phalcon\Db\Adapter\Pdo\Mysql
+     */
     public function rollbackTransaction($event, $connection)
     {
+        $id = $connection->getConnectionId();
+        $key = json_encode([
+            'connection_id' => $id,
+            'level' => $connection->getTransactionLevel()
+        ]);
+        $result = \app\common\events\Profiler::getInstance()->end($key);
         $this->_logger->debug('rollback transaction');
+        if ($result) {
+            $this->_logger->debug($key . '=>' . json_encode($result));
+        }
     }
 
+    /**
+     * @param $event \Phalcon\Events\Event
+     * @param $connection \Phalcon\Db\Adapter\Pdo\Mysql
+     */
     public function createSavepoint($event, $connection)
     {
         $this->_logger->debug('create save point');
     }
 
+    /**
+     * @param $event \Phalcon\Events\Event
+     * @param $connection \Phalcon\Db\Adapter\Pdo\Mysql
+     */
     public function releaseSavepoint($event, $connection)
     {
         $this->_logger->debug('release save point');
     }
 
+    /**
+     * @param $event \Phalcon\Events\Event
+     * @param $connection \Phalcon\Db\Adapter\Pdo\Mysql
+     */
     public function rollbackSavepoint($event, $connection)
     {
         $this->_logger->debug('rollback save point');
