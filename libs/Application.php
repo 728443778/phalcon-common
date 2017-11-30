@@ -23,6 +23,23 @@ class Application extends \Phalcon\Mvc\Application
 
     public $requestId;
 
+    protected $_loadFiles = [];
+
+    public $_loadFileCount = 0;
+
+    public function setLoadFile($file)
+    {
+        if (!in_array($file, $this->_loadFiles)) {
+            $this->_loadFiles[] = $file;
+            ++$this->_loadFileCount;
+        }
+    }
+
+    public function getLoadFiles()
+    {
+        return $this->_loadFiles;
+    }
+
     public function __construct(DiInterface $dependencyInjector = null)
     {
         parent::__construct($dependencyInjector);

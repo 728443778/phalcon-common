@@ -60,13 +60,15 @@ class ApplicationEvent
         $response->sendHeaders();
         $headerList = headers_list();
         $response = [
-            'content' => $content,
+            'headers' => $headerList,
             'status' => $statusCode,
-            'headers' => $headerList
+            'content' => $content,
+
         ];
         $result = Profiler::getInstance()->end($this->_app->getRequestId());
         $this->_logger->info('Response:' . json_encode($response));
         $this->_logger->debug(json_encode($result));
+        $this->_logger->info('Autoload file count:' . $application->_loadFileCount);
         $this->_logger->notice('Request end');
     }
 
