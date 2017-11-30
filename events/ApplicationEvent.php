@@ -21,7 +21,7 @@ class ApplicationEvent
         $this->_app = Application::getApp();
         $di = $this->_app->getDI();
         $this->_logger = $di->getShared('debug_logger');
-        Profiler::getInstance()->start($this->_app->getRequestId());
+        Profiler::getInstance()->start('RequestProfile');
         $time = $this->_app->getRequestTime();
         $this->_logger->notice('Request start:' . date('Y-m-d H:i:s', $time));
         $request = $this->_app->request;
@@ -65,7 +65,7 @@ class ApplicationEvent
             'content' => $content,
 
         ];
-        $result = Profiler::getInstance()->end($this->_app->getRequestId());
+        $result = Profiler::getInstance()->end('RequestProfile');
         $this->_logger->info('Response:' . json_encode($response));
         $this->_logger->debug(json_encode($result));
         $this->_logger->info('Autoload file count:' . $application->_loadFileCount);
