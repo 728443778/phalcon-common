@@ -5,6 +5,11 @@ namespace app\collections;
 use MongoDB\Client;
 use MongoDB\Database;
 
+/**
+ * 该类只适用于Phalcon框架
+ * Class Collection
+ * @package app\collections
+ */
 class Collection extends \Phalcon\Di\Injectable
 {
     /**

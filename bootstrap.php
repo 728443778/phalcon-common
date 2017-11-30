@@ -2,10 +2,8 @@
 use Phalcon\Di\FactoryDefault;
 
 error_reporting(E_ALL);
-
-
-define('BASE_PATH', dirname(__DIR__) . '/..');
-define('APP_PATH', BASE_PATH . '/app');
+define('APP_PATH', dirname(__DIR__));
+define('BASE_PATH', APP_PATH . '/..');
 
 function php_error_handler($errno, $errstr, $errfile, $errline)
 {
