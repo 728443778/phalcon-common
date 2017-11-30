@@ -27,6 +27,8 @@ class Application extends \Phalcon\Mvc\Application
 
     public $_loadFileCount = 0;
 
+    protected $_config;
+
     public function setLoadFile($file)
     {
         if (!in_array($file, $this->_loadFiles)) {
@@ -122,5 +124,14 @@ class Application extends \Phalcon\Mvc\Application
             static::$app = new static();
         }
         return static::$app;
+    }
+
+    public function getConfig($reGet = false)
+    {
+        if ($this->_config && !$reGet) {
+            return $this->_config;
+        }
+        $this->_config = $this->getDI()->getConfig();
+        return $this->_config;
     }
 }
