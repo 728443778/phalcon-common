@@ -69,6 +69,8 @@ class ApplicationEvent
         $this->_logger->info('Response:' . json_encode($response));
         $this->_logger->debug(json_encode($result));
         $this->_logger->info('Autoload file count:' . $application->_loadFileCount);
+        $dbMessage = 'mysql operate count:' . $application->_dbCount . '; time:' . $application->_dbOpTime;
+        $this->_logger->info($dbMessage);
         $this->_logger->notice('Request end');
     }
 

@@ -27,6 +27,10 @@ class Application extends \Phalcon\Mvc\Application
 
     public $_loadFileCount = 0;
 
+    public $_dbCount = 0;
+
+    public $_dbOpTime = 0;
+
     protected $_config;
 
     public function setLoadFile($file)

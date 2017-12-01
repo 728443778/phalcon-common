@@ -17,15 +17,18 @@ class DbEvents
 
     protected $_isStart = false;
 
+    protected $_app;
+
     public function __construct()
     {
         $this->_profiler = new Profiler();
-        $application  = Application::getApp();
+        $this->_app = $application  = Application::getApp();
         $this->_logger = $application->getDI()->getShared('debug_logger');
     }
 
     public function beforeQuery($event, $connection)
     {
+        ++$this->_app->_dbCount;
         $this->_logger->debug('execute sql:' . $connection->getSQLStatement());
         $this->_profiler->startProfile($connection->getSQLStatement());
     }
@@ -34,6 +37,7 @@ class DbEvents
     {
         $this->_profiler->stopProfile();
         $userTime = $this->_profiler->getTotalElapsedSeconds();
+        $this->_app->_dbOpTime += $userTime;
         $message = 'sql:' . $connection->getSQLStatement() . "\n";
         $message .='DB耗时:' . $userTime;
         $this->_logger->debug($message);
