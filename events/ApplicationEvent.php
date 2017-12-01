@@ -20,19 +20,20 @@ class ApplicationEvent
     {
         $this->_app = Application::getApp();
         $di = $this->_app->getDI();
-        $this->_logger = $di->getShared('debug_logger');
-        Profiler::getInstance()->start('RequestProfile');
-        $time = $this->_app->getRequestTime();
-        $this->_logger->notice('Request start:' . date('Y-m-d H:i:s', $time));
-        $request = $this->_app->request;
-        $data = [
-            'request_method' => $request->getMethod(),
-            'get_param' => $_GET,
-            'post_param' => $_POST,
-            'headers' => $request->getHeaders(),
-            'client_addrs' => $request->getClientAddress()
-        ];
-        $this->_logger->info(json_encode($data));
+        $this->_logger = $di->getShared('logger');
+        //把事件放到load 事件中，或者application的构造事件中
+//        Profiler::getInstance()->start('RequestProfile');
+//        $time = $this->_app->getRequestTime();
+//        $this->_logger->notice('Request start:' . date('Y-m-d H:i:s', $time));
+//        $request = $this->_app->request;
+//        $data = [
+//            'request_method' => $request->getMethod(),
+//            'get_param' => $_GET,
+//            'post_param' => $_POST,
+//            'headers' => $request->getHeaders(),
+//            'client_addrs' => $request->getClientAddress()
+//        ];
+//        $this->_logger->info(json_encode($data));
     }
 
     public function boot($event)
@@ -51,27 +52,7 @@ class ApplicationEvent
      */
     public function beforeSendResponse($event,$application)
     {
-        $response = $application->response;
-        $content = $response->getContent();
-        $statusCode = $response->getStatusCode();
-        if (!$statusCode) {
-            $statusCode = 200;
-        }
-        $response->sendHeaders();
-        $headerList = headers_list();
-        $response = [
-            'headers' => $headerList,
-            'status' => $statusCode,
-            'content' => $content,
-
-        ];
-        $result = Profiler::getInstance()->end('RequestProfile');
-        $this->_logger->info('Response:' . json_encode($response));
-        $this->_logger->debug(json_encode($result));
-        $this->_logger->info('Autoload file count:' . $application->_loadFileCount);
-        $dbMessage = 'mysql operate count:' . $application->_dbCount . '; time:' . $application->_dbOpTime;
-        $this->_logger->info($dbMessage);
-        $this->_logger->notice('Request end');
+        $this->_logger->debug('before response:');
     }
 
     public function beforeHandleRequest($event)

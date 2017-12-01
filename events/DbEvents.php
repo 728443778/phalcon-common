@@ -23,7 +23,7 @@ class DbEvents
     {
         $this->_profiler = new Profiler();
         $this->_app = $application  = Application::getApp();
-        $this->_logger = $application->getDI()->getShared('debug_logger');
+        $this->_logger = $application->getDI()->getShared('logger');
     }
 
     public function beforeQuery($event, $connection)

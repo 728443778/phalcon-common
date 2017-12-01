@@ -13,7 +13,7 @@ class DispatcherEvent
     public function __construct()
     {
         $application  = Application::getApp();
-        $this->_logger = $application->getDI()->getShared('debug_logger');
+        $this->_logger = $application->getDI()->getShared('logger');
     }
 
     /**

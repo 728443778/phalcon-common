@@ -13,7 +13,7 @@ class LoadEvent
     public function __construct()
     {
         $this->_app  = Application::getApp();
-        $this->_logger = $this->_app->getDI()->getShared('debug_logger');
+        $this->_logger = $this->_app->getDI()->getShared('logger');
     }
 
     /**
