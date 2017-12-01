@@ -173,12 +173,12 @@ class Application extends \Phalcon\Mvc\Application
                 'content' => $content,
 
             ];
-            $result = Profiler::getInstance()->end('RequestProfile');
             $this->logger->info('Response:' . json_encode($response));
-            $this->logger->debug(json_encode($result));
             $this->logger->info('Autoload file count:' . $this->_loadFileCount);
             $dbMessage = 'mysql operate count:' . $this->_dbCount . '; time:' . $this->_dbOpTime;
             $this->logger->info($dbMessage);
+            $result = Profiler::getInstance()->end('RequestProfile');
+            $this->logger->debug(json_encode($result));
             $this->logger->notice('Request end');
         }
     }
