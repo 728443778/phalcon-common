@@ -2,6 +2,7 @@
 
 namespace app\common\libs;
 
+use app\common\events\Profiler;
 use app\common\traits\Services;
 use Phalcon\DiInterface;
 use sevenUtils\resources\Client;
@@ -23,11 +24,49 @@ class Application extends \Phalcon\Mvc\Application
 
     public $requestId;
 
+    protected $_loadFiles = [];
+
+    public $_loadFileCount = 0;
+
+    public $_dbCount = 0;
+
+    public $_dbOpTime = 0;
+
+    protected $_config;
+
+    public function setLoadFile($file)
+    {
+        if (!in_array($file, $this->_loadFiles)) {
+            $this->_loadFiles[] = $file;
+            ++$this->_loadFileCount;
+        }
+    }
+
+    public function getLoadFiles()
+    {
+        return $this->_loadFiles;
+    }
+
     public function __construct(DiInterface $dependencyInjector = null)
     {
         parent::__construct($dependencyInjector);
         $this->user = new \app\common\components\User();
         self::$app = $this;
+        $config = $this->getConfig();
+        if ($config->debug) {
+            Profiler::getInstance()->start('RequestProfile');
+            $time = $this->getRequestTime();
+            $this->logger->notice('Request start:' . date('Y-m-d H:i:s', $time));
+            $request = $this->request;
+            $data = [
+                'request_method' => $request->getMethod(),
+                'get_param' => $_GET,
+                'post_param' => $_POST,
+                'headers' => $request->getHeaders(),
+                'client_addrs' => $request->getClientAddress()
+            ];
+            $this->logger->info(json_encode($data));
+        }
     }
 
     public function getRandNumber($length = 6)
@@ -105,5 +144,42 @@ class Application extends \Phalcon\Mvc\Application
             static::$app = new static();
         }
         return static::$app;
+    }
+
+    public function getConfig($reGet = false)
+    {
+        if ($this->_config && !$reGet) {
+            return $this->_config;
+        }
+        $this->_config = $this->getDI()->getConfig();
+        return $this->_config;
+    }
+
+    public function __destruct()
+    {
+        // TODO: Implement __destruct() method.
+        $config = $this->getConfig();
+        if ($config->debug) {
+            $response = $this->response;
+            $content = $response->getContent();
+            $statusCode = $response->getStatusCode();
+            if (!$statusCode) {
+                $statusCode = 200;
+            }
+            $headerList = headers_list();
+            $response = [
+                'headers' => $headerList,
+                'status' => $statusCode,
+                'body' => $content,
+
+            ];
+            $this->logger->info('Response:' . json_encode($response));
+            $this->logger->info('Autoload file count:' . $this->_loadFileCount);
+            $dbMessage = 'mysql operate count:' . $this->_dbCount . '; time:' . $this->_dbOpTime;
+            $this->logger->info($dbMessage);
+            $result = Profiler::getInstance()->end('RequestProfile');
+            $this->logger->debug(json_encode($result));
+            $this->logger->notice('Request end');
+        }
     }
 }
