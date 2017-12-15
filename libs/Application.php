@@ -182,7 +182,7 @@ class Application extends \Phalcon\Mvc\Application
             $response = [
                 'headers' => $headerList,
                 'status' => $statusCode,
-                'content' => $content,
+                'body' => $content,
 
             ];
             $this->logger->info('Response:' . json_encode($response));
