@@ -39,8 +39,11 @@ class Collection extends \Phalcon\Di\Injectable
      * @throws \MongoConnectionException
      * @throws \MongoException
      */
-    public function __construct($colleciontName, $databaseName = null, $connectionName = 'mongodb')
+    public function __construct($colleciontName, $databaseName = null, $connectionName = null)
     {
+        if ($connectionName == null) {
+            $connectionName = 'mongodb';
+        }
         $flag = $this->selectConnection($connectionName);
         if (!$flag) {
             throw new \MongoConnectionException('get mongodb connection failed', ERROR_GET_MONGODB_CONNECTION_FAILED);

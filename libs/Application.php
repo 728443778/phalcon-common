@@ -140,10 +140,13 @@ class Application extends \Phalcon\Mvc\Application
         return $this->getDI()->get('resources_client');
     }
 
-    public static function getApp()
+    public static function getApp($di = null)
     {
         if (!static::$app) {
             static::$app = new static();
+        }
+        if ($di) {
+            static::$app->setDI($di);
         }
         return static::$app;
     }
