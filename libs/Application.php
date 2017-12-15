@@ -34,6 +34,8 @@ class Application extends \Phalcon\Mvc\Application
 
     protected $_config;
 
+    protected $_logId;
+
     public function setLoadFile($file)
     {
         if (!in_array($file, $this->_loadFiles)) {
@@ -153,6 +155,16 @@ class Application extends \Phalcon\Mvc\Application
         }
         $this->_config = $this->getDI()->getConfig();
         return $this->_config;
+    }
+
+    public function getLogId()
+    {
+        if ($this->_logId) {
+            return $this->_logId;
+        }
+        $date = date('YmdHis');
+        $this->_logId = uniqid($date);
+        return $this->_logId;
     }
 
     public function __destruct()
