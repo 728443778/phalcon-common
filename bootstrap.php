@@ -90,7 +90,7 @@ function exception_handler($e)
     /**
      * Handle the request
      */
-    $application = new \app\common\libs\Application($di);
+    $application = \app\common\libs\Application::getApp($di);
 
     if ($config->debug) {
         $loadEvents = new \app\common\events\LoadEvent();

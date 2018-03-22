@@ -21,19 +21,6 @@ class ApplicationEvent
         $this->_app = Application::getApp();
         $di = $this->_app->getDI();
         $this->_logger = $di->getShared('logger');
-        //把事件放到load 事件中，或者application的构造事件中
-//        Profiler::getInstance()->start('RequestProfile');
-//        $time = $this->_app->getRequestTime();
-//        $this->_logger->notice('Request start:' . date('Y-m-d H:i:s', $time));
-//        $request = $this->_app->request;
-//        $data = [
-//            'request_method' => $request->getMethod(),
-//            'get_param' => $_GET,
-//            'post_param' => $_POST,
-//            'headers' => $request->getHeaders(),
-//            'client_addrs' => $request->getClientAddress()
-//        ];
-//        $this->_logger->info(json_encode($data));
     }
 
     public function boot($event)
