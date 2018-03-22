@@ -20,6 +20,9 @@ function php_error_handler($errno, $errstr, $errfile, $errline)
     $content = [
         'code' => $errno,
     ];
+    if ($content['code'] == 0) {
+        $content['code'] = 501;
+    }
     $application->response->setJsonContent($content);
     $application->response->setContent($content);
     $application->response->setStatusCode(401);
@@ -49,6 +52,9 @@ function exception_handler($e)
 //    $application->view->setVar('message', 'Catch exception:Your Request Page is not exist');
 //    $content = $application->view->render('public', 'error');
     $content['code'] = $e->getCode();
+    if (empty($content['code'])) {
+        $content['code'] = 500;
+    }
     $application->response->setJsonContent($content);
     $application->response->setStatusCode(402);
     $application->response->send();
