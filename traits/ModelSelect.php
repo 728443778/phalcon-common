@@ -61,6 +61,7 @@ trait ModelSelect
     public static function modelFind($filter, $fileds = '*', $connection = 'db')
     {
         $model = new static();
+        //fetch 从查询中获取一条数据，fetchAll  获取查询的所有数据集
         $row = $model->select($filter, $fileds, 1, $connection)->fetch();
         if (!$row) {
             return null;
