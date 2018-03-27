@@ -160,13 +160,16 @@ class Application extends \Phalcon\Mvc\Application
         return $this->_config;
     }
 
+    /**
+     * @return string
+     */
     public function getLogId()
     {
         if ($this->_logId) {
             return $this->_logId;
         }
         $date = date('YmdHis');
-        $this->_logId = uniqid($date);
+        $this->_logId = $date . '_' . $this->getRequestId();
         return $this->_logId;
     }
 
