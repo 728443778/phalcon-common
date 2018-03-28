@@ -40,9 +40,6 @@ class HttpRequest extends \sevenUtils\HttpRequest
         }
         if ($this->_returnArrayByJsonDecode) {
             $response = json_decode($response, true);
-            if (isset($response['request_id'])) {
-                Application::getApp()->requestId = $response['request_id'];
-            }
         }
         return $response;
     }
