@@ -200,4 +200,9 @@ class Application extends \Phalcon\Mvc\Application
             $this->logger->notice('Request end');
         }
     }
+
+    public function getLogger()
+    {
+        return $this->getDI()->getShared('logger');
+    }
 }
