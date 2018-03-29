@@ -214,7 +214,7 @@ class Application extends \Phalcon\Mvc\Application
                 $this->logger->debug($httpMessage);
             }
             if ($this->_collectionCount != 0) {
-                $collectionMessage = 'collection operate count:' . $this->_collectionCount .'; use time' . $this->_collectionTime;
+                $collectionMessage = 'collection operate count:' . $this->_collectionCount .'; use time:' . $this->_collectionTime;
                 $this->logger->debug($collectionMessage);
             }
             $result = Profiler::getInstance()->end('RequestProfile');
