@@ -12,6 +12,8 @@ class Application extends \Phalcon\Mvc\Application
 
     use Services;
 
+    public $debug;
+
     /**
      * @var \app\common\components\User
      */
@@ -28,9 +30,17 @@ class Application extends \Phalcon\Mvc\Application
 
     public $_loadFileCount = 0;
 
+    public $_httpRequestCount = 0;
+
+    public $_httpRequestTime = 0;
+
     public $_dbCount = 0;
 
     public $_dbOpTime = 0;
+
+    public $_collectionCount = 0;
+
+    public $_collectionTime = 0;
 
     protected $_config;
 
@@ -55,6 +65,7 @@ class Application extends \Phalcon\Mvc\Application
         $this->user = new \app\common\components\User();
         self::$app = $this;
         $config = $this->getConfig();
+        $this->debug = $config->debug;
         if ($config->debug && defined('MVC')) {
             Profiler::getInstance()->start('RequestProfile');
             $time = $this->getRequestTime();
@@ -177,8 +188,7 @@ class Application extends \Phalcon\Mvc\Application
     public function __destruct()
     {
         // TODO: Implement __destruct() method.
-        $config = $this->getConfig();
-        if ($config->debug && defined('MVC')) {
+        if ($this->debug && defined('MVC')) {
             $response = $this->response;
             $content = $response->getContent();
             $statusCode = $response->getStatusCode();
@@ -194,8 +204,19 @@ class Application extends \Phalcon\Mvc\Application
             ];
             $this->logger->info('Response:' . json_encode($response));
             $this->logger->info('Autoload file count:' . $this->_loadFileCount);
-            $dbMessage = 'mysql operate count:' . $this->_dbCount . '; time:' . $this->_dbOpTime;
-            $this->logger->info($dbMessage);
+            if ($this->_dbCount != 0) {
+                $dbMessage = 'mysql operate count:' . $this->_dbCount . '; time:' . $this->_dbOpTime;
+                $this->logger->debug($dbMessage);
+            }
+
+            if ($this->_httpRequestCount != 0) {
+                $httpMessage = 'http operate count:' . $this->_httpRequestCount . '; use time:' . $this->_httpRequestTime;
+                $this->logger->debug($httpMessage);
+            }
+            if ($this->_collectionCount != 0) {
+                $collectionMessage = 'collection operate count:' . $this->_collectionCount .'; use time' . $this->_collectionTime;
+                $this->logger->debug($collectionMessage);
+            }
             $result = Profiler::getInstance()->end('RequestProfile');
             $this->logger->debug(json_encode($result));
             $this->logger->notice('Request end');

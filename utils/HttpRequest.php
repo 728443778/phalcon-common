@@ -23,6 +23,7 @@ class HttpRequest extends \sevenUtils\HttpRequest
     {
         $this->url = $Url;
         if (Application::getApp()->getConfig()->debug) {
+            ++Application::getApp()->_httpRequestCount;
             Profiler::getInstance()->start($Url);
 
             $this->_logger->debug('http reqeust:' . $Url);
@@ -34,6 +35,7 @@ class HttpRequest extends \sevenUtils\HttpRequest
     {
         if (Application::getApp()->getConfig()->debug) {
             $result = Profiler::getInstance()->end($this->url);
+            Application::getApp()->_httpRequestTime += $result['use_time'];
             $logData = 'http end:' . $this->url . '=>' . json_encode($result);
             $this->_logger->debug($logData);
             $this->_logger->info('response:' . $response);
