@@ -55,7 +55,7 @@ class Application extends \Phalcon\Mvc\Application
         $this->user = new \app\common\components\User();
         self::$app = $this;
         $config = $this->getConfig();
-        if ($config->debug && !empty($this->request)) {
+        if ($config->debug && defined('MVC')) {
             Profiler::getInstance()->start('RequestProfile');
             $time = $this->getRequestTime();
             $this->logger->notice('Request start:' . date('Y-m-d H:i:s', $time));
@@ -178,7 +178,7 @@ class Application extends \Phalcon\Mvc\Application
     {
         // TODO: Implement __destruct() method.
         $config = $this->getConfig();
-        if ($config->debug && !empty($this->response)) {
+        if ($config->debug && defined('MVC')) {
             $response = $this->response;
             $content = $response->getContent();
             $statusCode = $response->getStatusCode();
