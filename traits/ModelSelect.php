@@ -43,7 +43,7 @@ trait ModelSelect
             ++$i;
         }
         $sql .= ' limit ' . $limit;
-        $connection = Application::$app->getPdoConnection($connection);
+        $connection = Application::getApp()->getPdoConnection($connection);
         return $connection->query($sql, $values);
     }
 
