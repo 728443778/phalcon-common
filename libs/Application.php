@@ -121,13 +121,13 @@ class Application extends \Phalcon\Mvc\Application
 
     public function getRequestTime()
     {
-        $time = $this->request->getServer('REQUEST_TIME');
-        if (!$time) {
-            $time = $this->request->getServer('request_time');
-            if (!$time) {
-                $time = time();
-                $_SERVER['REQUEST_TIME'] = $time;
-            }
+        if (!empty($_SERVER['REQUEST_TIME'])) {
+            return $_SERVER['REQUEST_TIME'];
+        }
+        $time = $this->getCache()->getToSession('REQUEST_TIME');
+        if (empty($time)) {
+            $time = time();
+            $this->getCache()->saveToSession('REQUEST_TIME', $time);
         }
         return $time;
     }
