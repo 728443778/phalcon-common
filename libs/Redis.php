@@ -6,7 +6,7 @@ class Redis extends \Phalcon\Cache\Backend\Redis
 {
     public $prefix = null;
 
-    protected $_cache;
+    protected $_cache = [];
 
     public function __construct($frontend, $options = null)
     {
@@ -62,6 +62,30 @@ class Redis extends \Phalcon\Cache\Backend\Redis
         $key = $this->getKey($keyName);
         $this->_cache[$key] = $content;
         return parent::save($key, $content, $lifetime, $stopBuffer);
+    }
+
+    /**
+     * 把一个东西存到本次回话中，主要用户mongodb查询，因为mongodb本来查询就比较快，而且mongodb查询的数据都比较大
+     * 放到redis等缓存中，不显示，其实主要就是解决一些东西的重复查询问题
+     * @param $keyName
+     * @param $content
+     */
+    public function saveToSession($keyName, $content)
+    {
+        $this->_cache[$keyName] = $content;
+    }
+
+    /**
+     * 获取存在于本次回话中的变量，这个东西不走cache服务
+     * @param $keyName
+     * @return null
+     */
+    public function getToSession($keyName)
+    {
+        if(array_key_exists($keyName, $this->_cache)) {
+            return $this->_cache[$keyName];
+        }
+        return null;
     }
 
     /**
