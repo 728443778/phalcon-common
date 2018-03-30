@@ -10,4 +10,6 @@ namespace app\common\traits;
 trait ErrorCode
 {
     public static $errorCode;
+
+    public static $errorStr;
 }
