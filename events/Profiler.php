@@ -42,7 +42,7 @@ class Profiler
         $useTime = $data['end_time'] - $data['start_time'];
         $useMem = $data['end_mem'] - $data['start_mem'];
         return [
-            'use_time' => $useTime . ' sec',
+            'use_time' => $useTime,
             'use_mem' => $useMem . ' bytes'
         ];
     }
