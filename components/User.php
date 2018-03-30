@@ -30,20 +30,4 @@ class User extends \Phalcon\Di\Injectable
         return bin2hex($bytes);
     }
 
-    public function initUser($token)
-    {
-        $binData = hex2bin($token);
-        $token = $this->crypt->decrypt($binData);
-        $cache = $this->getCache();
-        $data = $cache->get($token);
-        if (!isset($data['uid'])) {
-            return false;
-        }
-        $this->token = $token;
-        foreach ($data as $key=>$value) {
-            $this->user->$key = $value;
-        }
-        return true;
-    }
-
 }
