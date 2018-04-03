@@ -47,6 +47,12 @@ trait ModelSelect
         return $connection->query($sql, $values);
     }
 
+    /**
+     * @param $sql
+     * @param $bindValues
+     * @param string $connection
+     * @return bool|\Phalcon\Db\ResultInterface|void
+     */
     public static function rawSelect($sql, $bindValues, $connection = 'db')
     {
         $connection = Application::getApp()->getPdoConnection($connection);
