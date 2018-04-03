@@ -23,7 +23,7 @@ trait ModelSelect
      * @param $table string
      * @param $filter array
      * @param string $fileds
-     * @param int $limit
+     * @param int $limit | string 1 or 10,20
      * @param string $connection
      * @return bool|\Phalcon\Db\ResultInterface
      */
@@ -45,6 +45,12 @@ trait ModelSelect
         $sql .= ' limit ' . $limit;
         $connection = Application::getApp()->getPdoConnection($connection);
         return $connection->query($sql, $values);
+    }
+
+    public static function rawSelect($sql, $bindValues, $connection = 'db')
+    {
+        $connection = Application::getApp()->getPdoConnection($connection);
+        return $connection->query($sql, $bindValues);
     }
 
     public function setOperationMade($made)
