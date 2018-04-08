@@ -64,15 +64,16 @@ class Sms
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         $response = curl_exec($ch);
         $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
         if ($response === false || $status != 200) {
             $this->errorMsg = json_encode([
                 'status' => $status,
                 'response' => $response,
                 'curl_error' => curl_strerror(curl_errno($ch))
             ]);
+            curl_close($ch);
             return false;
         }
+        curl_close($ch);
         return true;
     }
 }
