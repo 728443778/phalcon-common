@@ -82,7 +82,7 @@ class Application extends \Phalcon\Mvc\Application
         if (($config->debug  || $config->profile)&& defined('MVC')) {
             Profiler::getInstance()->start('RequestProfile');
             $time = $this->getRequestTime();
-            $this->logger->notice('Request start:' . date('Y-m-d H:i:s', $time));
+            $this->logger->debug('Request start:' . date('Y-m-d H:i:s', $time));
 
             $request = $this->request;
             $data = [
@@ -232,7 +232,7 @@ class Application extends \Phalcon\Mvc\Application
             }
             $result = Profiler::getInstance()->end('RequestProfile');
             $this->logger->debug(json_encode($result));
-            $this->logger->notice('Request end');
+            $this->logger->debug('Request end');
         }
     }
 
