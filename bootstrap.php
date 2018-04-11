@@ -25,7 +25,6 @@ function php_error_handler($errno, $errstr, $errfile, $errline)
     }
     $content['request_id'] = $application->getRequestId();
     $application->response->setJsonContent($content);
-    $application->response->setContent($content);
     $application->response->setStatusCode(401);
     $application->response->send();
 }
