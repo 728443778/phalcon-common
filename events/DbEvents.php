@@ -28,19 +28,23 @@ class DbEvents
 
     public function beforeQuery($event, $connection)
     {
-        ++$this->_app->_dbCount;
-        $this->_logger->debug('execute sql:' . $connection->getSQLStatement());
-        $this->_profiler->startProfile($connection->getSQLStatement());
+        if ($this->_app->debug || $this->_app->profile) {
+            ++$this->_app->_dbCount;
+            $this->_logger->debug('execute sql:' . $connection->getSQLStatement());
+            $this->_profiler->startProfile($connection->getSQLStatement());
+        }
     }
 
     public function afterQuery($event, $connection)
     {
-        $this->_profiler->stopProfile();
-        $userTime = $this->_profiler->getTotalElapsedSeconds();
-        $this->_app->_dbOpTime += $userTime;
-        $message = 'sql:' . $connection->getSQLStatement() . "\n";
-        $message .='DB耗时:' . $userTime;
-        $this->_logger->debug($message);
+        if ($this->_app->debug || $this->_app->profile) {
+            $this->_profiler->stopProfile();
+            $userTime = $this->_profiler->getTotalElapsedSeconds();
+            $this->_app->_dbOpTime += $userTime;
+            $message = 'sql:' . $connection->getSQLStatement() . "\n";
+            $message .='DB耗时:' . $userTime;
+            $this->_logger->debug($message);
+        }
     }
 
     public function getProfiler()
@@ -54,13 +58,15 @@ class DbEvents
      */
     public function beginTransaction($event, $connection)
     {
-        $id = $connection->getConnectionId();
-        $key = json_encode([
-            'connection_id' => $id,
-            'level' => $connection->getTransactionLevel()
-        ]);
-        \app\common\events\Profiler::getInstance()->start($key);
-        $this->_logger->debug('start transaction:' . $key);
+        if ($this->_app->debug || $this->_app->profile) {
+            $id = $connection->getConnectionId();
+            $key = json_encode([
+                'connection_id' => $id,
+                'level' => $connection->getTransactionLevel()
+            ]);
+            \app\common\events\Profiler::getInstance()->start($key);
+            $this->_logger->debug('start transaction:' . $key);
+        }
     }
 
     /**
@@ -69,15 +75,17 @@ class DbEvents
      */
     public function commitTransaction($event, $connection)
     {
-        $id = $connection->getConnectionId();
-        $key = json_encode([
-            'connection_id' => $id,
-            'level' => $connection->getTransactionLevel()
-        ]);
-        $result = \app\common\events\Profiler::getInstance()->end($key);
-        $this->_logger->debug('commit transaction:');
-        if ($result) {
-            $this->_logger->debug($key . '=>' . json_encode($result));
+        if ($this->_app->debug || $this->_app->profile) {
+            $id = $connection->getConnectionId();
+            $key = json_encode([
+                'connection_id' => $id,
+                'level' => $connection->getTransactionLevel()
+            ]);
+            $result = \app\common\events\Profiler::getInstance()->end($key);
+            $this->_logger->debug('commit transaction:');
+            if ($result) {
+                $this->_logger->debug($key . '=>' . json_encode($result));
+            }
         }
     }
 
@@ -87,15 +95,17 @@ class DbEvents
      */
     public function rollbackTransaction($event, $connection)
     {
-        $id = $connection->getConnectionId();
-        $key = json_encode([
-            'connection_id' => $id,
-            'level' => $connection->getTransactionLevel()
-        ]);
-        $result = \app\common\events\Profiler::getInstance()->end($key);
-        $this->_logger->debug('rollback transaction');
-        if ($result) {
-            $this->_logger->debug($key . '=>' . json_encode($result));
+        if ($this->_app->debug || $this->_app->profile) {
+            $id = $connection->getConnectionId();
+            $key = json_encode([
+                'connection_id' => $id,
+                'level' => $connection->getTransactionLevel()
+            ]);
+            $result = \app\common\events\Profiler::getInstance()->end($key);
+            $this->_logger->debug('rollback transaction');
+            if ($result) {
+                $this->_logger->debug($key . '=>' . json_encode($result));
+            }
         }
     }
 

@@ -22,7 +22,9 @@ class LoadEvent
      */
     public function beforeCheckPath($event, $loader)
     {
-        $this->_logger->notice("before load file:" . $loader->getCheckedPath());
+        if ($this->_app->debug) {
+            $this->_logger->notice("before load file:" . $loader->getCheckedPath());
+        }
     }
 
     /**
@@ -31,8 +33,10 @@ class LoadEvent
      */
     public function pathFound($event, $loader)
     {
-        $file = $loader->getFoundPath();
-        $this->_app->setLoadFile($file);
-        $this->_logger->debug('load file:' . $file);
+        if ($this->_app->debug) {
+            $file = $loader->getFoundPath();
+            $this->_app->setLoadFile($file);
+            $this->_logger->debug('load file:' . $file);
+        }
     }
 }

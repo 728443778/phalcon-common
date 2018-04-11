@@ -22,7 +22,7 @@ class HttpRequest extends \sevenUtils\HttpRequest
     public function beforeRequest($Url, $data = [])
     {
         $this->url = $Url;
-        if (Application::getApp()->getConfig()->debug) {
+        if (Application::getApp()->debug || Application::getApp()->profile) {
             ++Application::getApp()->_httpRequestCount;
             Profiler::getInstance()->start($Url);
 
@@ -33,7 +33,7 @@ class HttpRequest extends \sevenUtils\HttpRequest
 
     public function afterRequest(&$response)
     {
-        if (Application::getApp()->getConfig()->debug) {
+        if (Application::getApp()->debug || Application::getApp()->profile) {
             $result = Profiler::getInstance()->end($this->url);
             Application::getApp()->_httpRequestTime += $result['use_time'];
             $logData = 'http end:' . $this->url . '=>' . json_encode($result);
