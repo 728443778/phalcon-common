@@ -67,6 +67,16 @@ class Application extends \Phalcon\Mvc\Application
         $this->user = new \app\common\components\User();
         self::$app = $this;
         $config = $this->getConfig();
+        if (property_exists($config, 'debug')) {
+            $this->debug = boolval($config->debug);
+        } else {
+            $this->debug = false;
+        }
+        if (property_exists($config, 'profile')) {
+            $this->profile = boolval($config->profile);
+        } else {
+            $this->profile = false;
+        }
         $this->debug = $config->debug;
         $this->profile = $config->profile;
         if (($config->debug  || $config->profile)&& defined('MVC')) {
