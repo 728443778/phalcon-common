@@ -93,7 +93,7 @@ function exception_handler($e)
      */
     $application = \app\common\libs\Application::getApp($di);
 
-    if ($config->debug) {
+    if ($application->debug || $application->profile) {
         $loadEvents = new \app\common\events\LoadEvent();
         $loadEventManager = new \Phalcon\Events\Manager();
         $loadEventManager->attach('loader', $loadEvents);
