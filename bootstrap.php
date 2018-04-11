@@ -23,6 +23,7 @@ function php_error_handler($errno, $errstr, $errfile, $errline)
     if ($content['code'] == 0) {
         $content['code'] = 501;
     }
+    $content['request_id'] = $application->getRequestId();
     $application->response->setJsonContent($content);
     $application->response->setContent($content);
     $application->response->setStatusCode(401);
@@ -55,6 +56,7 @@ function exception_handler($e)
     if (empty($content['code'])) {
         $content['code'] = 500;
     }
+    $content['request_id'] = $application->getRequestId();
     $application->response->setJsonContent($content);
     $application->response->setStatusCode(402);
     $application->response->send();
