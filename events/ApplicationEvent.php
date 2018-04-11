@@ -25,12 +25,12 @@ class ApplicationEvent
 
     public function boot($event)
     {
-        $this->_logger->debug('start boot');
+        $this->_logger->notice('start boot');
     }
 
     public function beforeStartModule($event)
     {
-        $this->_logger->debug('before start module');
+        $this->_logger->notice('before start module');
     }
 
     /**
@@ -39,26 +39,26 @@ class ApplicationEvent
      */
     public function beforeSendResponse($event,$application)
     {
-        $this->_logger->debug('before response:');
+        $this->_logger->notice('before response:');
     }
 
     public function beforeHandleRequest($event)
     {
-        $this->_logger->debug('before handle request');
+        $this->_logger->notice('before handle request');
     }
 
     public function afterStartModule($event)
     {
-        $this->_logger->debug('after start module');
+        $this->_logger->notice('after start module');
     }
 
     public function afterHandleRequest($event)
     {
-        $this->_logger->debug('after handle request');
+        $this->_logger->notice('after handle request');
     }
 
     public function viewRender($event)
     {
-        $this->_logger->debug('view render');
+        $this->_logger->notice('view render');
     }
 }
