@@ -38,5 +38,8 @@ class LoadEvent
             $this->_app->setLoadFile($file);
             $this->_logger->debug('load file:' . $file);
         }
+        if ($this->_app->profile) {
+            ++$this->_app->_loadFileCount;
+        }
     }
 }
