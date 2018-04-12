@@ -217,7 +217,7 @@ class AmqpBase
             } else {
                 $return = $callback($message);
             }
-            if ($return) {
+            if ($return === true) {
                 $queue->ack($envelope->getDeliveryTag());
             } else {
                 $queue->nack($envelope->getDeliveryTag());
