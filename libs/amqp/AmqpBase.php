@@ -4,8 +4,9 @@ namespace app\common\libs\amqp;
 
 
 use app\common\libs\Application;
+use Phalcon\Di\Injectable;
 
-class AmqpBase
+class AmqpBase extends Injectable
 {
     /**
      * @var self
@@ -212,10 +213,15 @@ class AmqpBase
     {
         $this->queue->consume(function(\AMQPEnvelope $envelope, \AMQPQueue $queue) use ($callback) {
             $message = $envelope->getBody();
-            if (is_string($callback) || is_array($callback)) {
-                $return = call_user_func($callback, $message);
-            } else {
-                $return = $callback($message);
+            try {
+                if (is_string($callback) || is_array($callback)) {
+                    $return = call_user_func($callback, $message);
+                } else {
+                    $return = $callback($message);
+                }
+            } catch (\Exception $exception) {
+                $return = false;
+                $this->getDI()->getShared('logger')->error($exception->getMessage());
             }
             if ($return === true) {
                 $queue->ack($envelope->getDeliveryTag());
