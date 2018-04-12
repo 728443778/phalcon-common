@@ -221,7 +221,7 @@ class AmqpBase
             if ($return === true) {
                 $queue->ack($envelope->getDeliveryTag());
             } else {
-                $queue->nack($envelope->getDeliveryTag());
+                $queue->nack($envelope->getDeliveryTag(), AMQP_REQUEUE);
             }
         }, $flag);
     }
