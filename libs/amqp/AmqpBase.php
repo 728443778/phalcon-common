@@ -205,7 +205,7 @@ class AmqpBase
 
     /**
      * 启用消息确认的方式进行consumer
-     * @param $callback
+     * @param $callback callable 回掉函数，返回false amqp消息会重新入队
      * @param int $flag
      */
     public function consumer($callback, $flag = AMQP_NOPARAM)
