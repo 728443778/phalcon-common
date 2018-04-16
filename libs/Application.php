@@ -111,7 +111,9 @@ class Application extends \Phalcon\Mvc\Application
         if ($this->requestId) {
             return $this->requestId;
         }
-        $this->requestId = $this->genRandomString(16);
+        $requestTime = $this->getRequestTime();
+        $str = (string)dechex($requestTime);
+        $this->requestId = $str . $this->genRandomString(8);
         return $this->requestId;
     }
 
