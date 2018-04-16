@@ -113,7 +113,7 @@ class Application extends \Phalcon\Mvc\Application
         }
         $requestTime = $this->getRequestTime();
         $str = (string)dechex($requestTime);
-        $this->requestId = $str . $this->genRandomString(8);
+        $this->requestId = $str . $this->genRandomString(6);
         return $this->requestId;
     }
 
