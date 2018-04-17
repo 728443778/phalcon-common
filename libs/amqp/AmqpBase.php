@@ -37,7 +37,15 @@ class AmqpBase extends Injectable
 
     /**
      * @param bool $reInit
-     * @param array $args
+     * @param array $args 如果不传args ，将会取配置文件中的配置，传递参数的格式为
+     * [
+     *      'host' => $amqpConfig->host,
+            'port' => $amqpConfig->port,
+            'vhost' => $amqpConfig->vhost,
+            'login' => $amqpConfig->login,
+            'password' => $amqpConfig->password
+     * ]
+     *
      * @return self
      */
     public static function getInstance($reInit = false, $args = [])
