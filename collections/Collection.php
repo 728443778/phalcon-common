@@ -255,6 +255,7 @@ class Collection extends \Phalcon\Di\Injectable
      * 修改匹配到的所有数据集
      * @param $filter
      * @param $update
+     * @eg 更新数组中的指定元素，比如 countries是一个数 $update = ['$set' => ['countries.1.name' => 'china']]; //把countries索引为1的元素的name改为china
      * @param array $options
      * @return bool|\MongoDB\UpdateResult
      */
@@ -307,6 +308,7 @@ class Collection extends \Phalcon\Di\Injectable
     /**
      * @param array $filter
      * @param array $options
+     * @eg 只查询某些字段 $options = ['projects' => ['_id' => 1,'status'=>1]]; //返回_id,status
      * @return \MongoDB\Driver\Cursor
      */
     public function find($filter = [], $options = [])
