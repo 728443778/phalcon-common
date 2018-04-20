@@ -4,6 +4,9 @@ namespace app\common\traits;
 
 trait SingleInstance
 {
+    /**
+     * @var static
+     */
     protected static $_instance;
 
     public static function getInstance()
