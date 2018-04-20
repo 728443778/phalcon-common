@@ -19,9 +19,9 @@ trait SecurityAuth
 
     public function Auth(Request $request,\app\common\components\SecurityAuth $auth)
     {
-        $this->authID = $request->getPost('auth_id');
-        $this->authToken = $request->getPost('auth_token');
-        $this->authTime = $request->getPost('auth_time');
+        $this->authID = (string)$request->getPost('auth_id');
+        $this->authToken = (string)$request->getPost('auth_token');
+        $this->authTime = (int)$request->getPost('auth_time');
         $time = Application::getApp()->getRequestTime();
         if (($this->authTime + 30) < $time) {
             self::$errorStr = 'auth time out';
