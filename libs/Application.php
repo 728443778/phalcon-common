@@ -26,6 +26,7 @@ class Application extends \Phalcon\Mvc\Application
      */
     public static $app;
 
+
     public $requestId;
 
     protected $_loadFiles = [];
@@ -94,6 +95,20 @@ class Application extends \Phalcon\Mvc\Application
             ];
             $this->logger->info(json_encode($data));
         }
+    }
+
+    public function getRequestIp()
+    {
+        $xip = $this->request->getHeader('X-Real-Ip');
+        if (empty($xip)) {
+            $xip = $this->request->getClientAddress(true);
+        }
+        return $xip;
+    }
+
+    public function getUserAgent()
+    {
+        return $this->request->getUserAgent();
     }
 
     public function getRandNumber($length = 6)
