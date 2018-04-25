@@ -11,12 +11,12 @@ trait SingleInstance
 
     public static function getInstance($reinit = false)
     {
-        if (self::$_instance && !$reinit) {
-            return self::$_instance;
+        if (static::$_instance && !$reinit) {
+            return static::$_instance;
         }
-        self::$_instance = new self();
-        self::$_instance->init(); //在构造函数中初始化出问题 有时不好找问题
-        return self::$_instance;
+        static::$_instance = new static();
+        static::$_instance->init(); //在构造函数中初始化出问题 有时不好找问题
+        return static::$_instance;
     }
 
     public function init()
