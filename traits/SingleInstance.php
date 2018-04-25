@@ -9,9 +9,9 @@ trait SingleInstance
      */
     protected static $_instance;
 
-    public static function getInstance()
+    public static function getInstance($reinit = false)
     {
-        if (self::$_instance) {
+        if (self::$_instance && !$reinit) {
             return self::$_instance;
         }
         self::$_instance = new self();
