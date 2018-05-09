@@ -32,7 +32,7 @@ trait SecurityAuth
             self::$errorStr = 'not found auth id';
             return false;
         }
-        $token = hash('sha256', $client->token . $this->authTime);
+        $token = hash('sha256', $client->auth_token . $this->authTime);
         if ($token != $this->authToken) {
             self::$errorStr = 'auth failed';
             return false;
