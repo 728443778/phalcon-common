@@ -15,7 +15,7 @@ class User extends \Phalcon\Di\Injectable
     public $cache;
 
     /**
-     * @var \app\models\User
+     * 用户实例
      */
     public $user;
 
