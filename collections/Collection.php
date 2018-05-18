@@ -99,7 +99,7 @@ class Collection extends \Phalcon\Di\Injectable
             ++Application::getApp()->_collectionCount;
             Application::getApp()->_collectionTime += $profierResult['use_time'];
             $profierResult['where'] = $filter;
-            Application::getApp()->getLogger()->debug('collection_delete_one' . json_encode($profierResult));
+            Application::getApp()->getLogger()->notice('collection_delete_one' . json_encode($profierResult));
         }
         if ($result->getDeletedCount() < 1) {
             return false;
@@ -124,7 +124,7 @@ class Collection extends \Phalcon\Di\Injectable
             ++Application::getApp()->_collectionCount;
             Application::getApp()->_collectionTime += $profierResult['use_time'];
             $profierResult['where'] = $filter;
-            Application::getApp()->getLogger()->debug('collection_delete_many' . json_encode($profierResult));
+            Application::getApp()->getLogger()->notice('collection_delete_many' . json_encode($profierResult));
         }
         if ($result->getDeletedCount() < 1) {
             return false;
@@ -193,7 +193,7 @@ class Collection extends \Phalcon\Di\Injectable
             ++Application::getApp()->_collectionCount;
             Application::getApp()->_collectionTime += $profierResult['use_time'];
             $profierResult['data'] = $data;
-            Application::getApp()->getLogger()->debug('collection_insert_one' . json_encode($profierResult));
+            Application::getApp()->getLogger()->notice('collection_insert_one' . json_encode($profierResult));
         }
         if ($result->getInsertedCount() < 1) {
             return false;
@@ -217,7 +217,7 @@ class Collection extends \Phalcon\Di\Injectable
             ++Application::getApp()->_collectionCount;
             Application::getApp()->_collectionTime += $profierResult['use_time'];
             $profierResult['datas'] = $datas;
-            Application::getApp()->getLogger()->debug('collection_insert_maney' . json_encode($profierResult));
+            Application::getApp()->getLogger()->notice('collection_insert_maney' . json_encode($profierResult));
         }
         if ($result->getInsertedCount() < 1) {
             return false;
@@ -243,7 +243,7 @@ class Collection extends \Phalcon\Di\Injectable
             ++Application::getApp()->_collectionCount;
             Application::getApp()->_collectionTime += $profierResult['use_time'];
             $profierResult['where'] = $filter;
-            Application::getApp()->getLogger()->debug('collection_update_one' . json_encode($profierResult));
+            Application::getApp()->getLogger()->notice('collection_update_one' . json_encode($profierResult));
         }
         if ($result->getModifiedCount() < 1) {
             return false;
@@ -270,7 +270,7 @@ class Collection extends \Phalcon\Di\Injectable
             ++Application::getApp()->_collectionCount;
             Application::getApp()->_collectionTime += $profierResult['use_time'];
             $profierResult['where'] = $filter;
-            Application::getApp()->getLogger()->debug('collection_update_many' . json_encode($profierResult));
+            Application::getApp()->getLogger()->notice('collection_update_many' . json_encode($profierResult));
         }
         if($result->getModifiedCount() < 1) {
             return false;
@@ -300,7 +300,7 @@ class Collection extends \Phalcon\Di\Injectable
             ++Application::getApp()->_collectionCount;
             Application::getApp()->_collectionTime += $profierResult['use_time'];
             $profierResult['where'] = $filter;
-            Application::getApp()->getLogger()->debug('collection_find_one' . json_encode($profierResult));
+            Application::getApp()->getLogger()->notice('collection_find_one' . json_encode($profierResult));
         }
         return $result;
     }
@@ -324,7 +324,7 @@ class Collection extends \Phalcon\Di\Injectable
             ++Application::getApp()->_collectionCount;
             Application::getApp()->_collectionTime += $profierResult['use_time'];
             $profierResult['where'] = $filter;
-            Application::getApp()->getLogger()->debug('collection_find' . json_encode($profierResult));
+            Application::getApp()->getLogger()->notice('collection_find' . json_encode($profierResult));
         }
         return $result;
     }
@@ -347,7 +347,7 @@ class Collection extends \Phalcon\Di\Injectable
             ++Application::getApp()->_collectionCount;
             Application::getApp()->_collectionTime += $profierResult['use_time'];
             $profierResult['where'] = $filter;
-            Application::getApp()->getLogger()->debug('collection_findOneReplace' . json_encode($profierResult));
+            Application::getApp()->getLogger()->notice('collection_findOneReplace' . json_encode($profierResult));
         }
         return $return;
     }

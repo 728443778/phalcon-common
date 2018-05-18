@@ -26,8 +26,8 @@ class HttpRequest extends \sevenUtils\HttpRequest
             ++Application::getApp()->_httpRequestCount;
             Profiler::getInstance()->start($Url);
 
-            $this->_logger->debug('http reqeust:' . $Url);
-            $this->_logger->debug('data:' . json_encode($data));
+            $this->_logger->notice('http reqeust:' . $Url);
+            $this->_logger->notice('data:' . json_encode($data));
         }
     }
 
@@ -37,8 +37,8 @@ class HttpRequest extends \sevenUtils\HttpRequest
             $result = Profiler::getInstance()->end($this->url);
             Application::getApp()->_httpRequestTime += $result['use_time'];
             $logData = 'http end:' . $this->url . '=>' . json_encode($result);
-            $this->_logger->debug($logData);
-            $this->_logger->info('response:' . $response);
+            $this->_logger->notice($logData);
+            $this->_logger->notice('response:' . $response);
         }
         if ($this->_returnArrayByJsonDecode) {
             $response = json_decode($response, true);

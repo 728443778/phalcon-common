@@ -23,7 +23,7 @@ class LoadEvent
     public function beforeCheckPath($event, $loader)
     {
         if ($this->_app->debug) {
-            $this->_logger->notice("before load file:" . $loader->getCheckedPath());
+            $this->_logger->debug("before load file:" . $loader->getCheckedPath());
         }
     }
 

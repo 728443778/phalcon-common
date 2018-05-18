@@ -83,7 +83,7 @@ class Application extends \Phalcon\Mvc\Application
         if (($config->debug  || $config->profile)&& defined('MVC')) {
             Profiler::getInstance()->start('RequestProfile');
             $time = $this->getRequestTime();
-            $this->logger->debug('Request start:' . date('Y-m-d H:i:s', $time));
+            $this->logger->notice('Request start:' . date('Y-m-d H:i:s', $time));
 
             $request = $this->request;
             $data = [
@@ -93,7 +93,7 @@ class Application extends \Phalcon\Mvc\Application
                 'headers' => $request->getHeaders(),
                 'client_addrs' => $request->getClientAddress()
             ];
-            $this->logger->info(json_encode($data));
+            $this->logger->notice(json_encode($data));
         }
     }
 
@@ -236,20 +236,20 @@ class Application extends \Phalcon\Mvc\Application
             $this->logger->info('Autoload file count:' . $this->_loadFileCount);
             if ($this->_dbCount != 0) {
                 $dbMessage = 'mysql operate count:' . $this->_dbCount . '; time:' . $this->_dbOpTime;
-                $this->logger->debug($dbMessage);
+                $this->logger->notice($dbMessage);
             }
 
             if ($this->_httpRequestCount != 0) {
                 $httpMessage = 'http operate count:' . $this->_httpRequestCount . '; use time:' . $this->_httpRequestTime;
-                $this->logger->debug($httpMessage);
+                $this->logger->notice($httpMessage);
             }
             if ($this->_collectionCount != 0) {
                 $collectionMessage = 'collection operate count:' . $this->_collectionCount .'; use time:' . $this->_collectionTime;
-                $this->logger->debug($collectionMessage);
+                $this->logger->notice($collectionMessage);
             }
             $result = Profiler::getInstance()->end('RequestProfile');
             $this->logger->debug(json_encode($result));
-            $this->logger->debug('Request end');
+            $this->logger->notice('Request end');
         }
     }
 

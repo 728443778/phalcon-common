@@ -30,7 +30,7 @@ class DbEvents
     {
         if ($this->_app->debug || $this->_app->profile) {
             ++$this->_app->_dbCount;
-            $this->_logger->debug('execute sql:' . $connection->getSQLStatement());
+            $this->_logger->notice('execute sql:' . $connection->getSQLStatement());
             $this->_profiler->startProfile($connection->getSQLStatement());
         }
     }
@@ -43,7 +43,7 @@ class DbEvents
             $this->_app->_dbOpTime += $userTime;
             $message = 'sql:' . $connection->getSQLStatement() . "\n";
             $message .='DB耗时:' . $userTime;
-            $this->_logger->debug($message);
+            $this->_logger->notice($message);
         }
     }
 
@@ -65,7 +65,7 @@ class DbEvents
                 'level' => $connection->getTransactionLevel()
             ]);
             \app\common\events\Profiler::getInstance()->start($key);
-            $this->_logger->debug('start transaction:' . $key);
+            $this->_logger->notice('start transaction:' . $key);
         }
     }
 
@@ -82,9 +82,9 @@ class DbEvents
                 'level' => $connection->getTransactionLevel()
             ]);
             $result = \app\common\events\Profiler::getInstance()->end($key);
-            $this->_logger->debug('commit transaction:');
+            $this->_logger->notice('commit transaction:');
             if ($result) {
-                $this->_logger->debug($key . '=>' . json_encode($result));
+                $this->_logger->notice($key . '=>' . json_encode($result));
             }
         }
     }
@@ -102,9 +102,9 @@ class DbEvents
                 'level' => $connection->getTransactionLevel()
             ]);
             $result = \app\common\events\Profiler::getInstance()->end($key);
-            $this->_logger->debug('rollback transaction');
+            $this->_logger->notice('rollback transaction');
             if ($result) {
-                $this->_logger->debug($key . '=>' . json_encode($result));
+                $this->_logger->notice($key . '=>' . json_encode($result));
             }
         }
     }
