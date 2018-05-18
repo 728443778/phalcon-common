@@ -232,8 +232,8 @@ class Application extends \Phalcon\Mvc\Application
                 'body' => $content,
 
             ];
-            $this->logger->info('Response:' . json_encode($response));
-            $this->logger->info('Autoload file count:' . $this->_loadFileCount);
+            $this->logger->debug('Response:' . json_encode($response));
+            $this->logger->notice('Autoload file count:' . $this->_loadFileCount);
             if ($this->_dbCount != 0) {
                 $dbMessage = 'mysql operate count:' . $this->_dbCount . '; time:' . $this->_dbOpTime;
                 $this->logger->notice($dbMessage);
@@ -248,7 +248,7 @@ class Application extends \Phalcon\Mvc\Application
                 $this->logger->notice($collectionMessage);
             }
             $result = Profiler::getInstance()->end('RequestProfile');
-            $this->logger->debug(json_encode($result));
+            $this->logger->notice(json_encode($result));
             $this->logger->notice('Request end');
         }
     }
