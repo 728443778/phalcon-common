@@ -93,7 +93,7 @@ class Application extends \Phalcon\Mvc\Application
                 'headers' => $request->getHeaders(),
                 'client_addrs' => $request->getClientAddress()
             ];
-            $this->logger->notice(json_encode($data));
+            $this->logger->debug(json_encode($data));
         }
     }
 
