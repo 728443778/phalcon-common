@@ -210,8 +210,7 @@ class Application extends \Phalcon\Mvc\Application
         if ($this->_logId) {
             return $this->_logId;
         }
-        $date = date('YmdHis');
-        $this->_logId = $date . '_' . $this->getRequestId();
+        $this->_logId = $this->getRequestId();
         return $this->_logId;
     }
 
