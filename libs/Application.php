@@ -90,6 +90,7 @@ class Application extends \Phalcon\Mvc\Application
                 'request_method' => $request->getMethod(),
                 'get_param' => $_GET,
                 'post_param' => $_POST,
+                'origin_body_data' => file_get_contents('php://input'),
                 'headers' => $request->getHeaders(),
                 'client_addrs' => $request->getClientAddress()
             ];
