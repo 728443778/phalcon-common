@@ -88,7 +88,7 @@ class Collection extends \Phalcon\Di\Injectable
      * @param $options
      * @return bool|\MongoDB\DeleteResult
      */
-    public function deleteOne($filter, $options)
+    public function deleteOne($filter, $options = [])
     {
         if (Application::getApp()->debug || Application::getApp()->profile) {
             Profiler::getInstance()->start('collection_delete_one' . json_encode($filter));
