@@ -49,32 +49,50 @@ class DbEvents
 
     public function beforeDelete($event, $connection)
     {
-
+        $sql = $connection->getSQLStatement();
+        $this->_profiler->startProfile($sql);
     }
 
     public function afterDelete($event, $connection)
     {
-
+        $this->_profiler->stopProfile();
+        $userTime = $this->_profiler->getTotalElapsedSeconds();
+        $this->_app->_dbOpTime += $userTime;
+        $message = 'execute sql:' . $connection->getSQLStatement() . "\n";
+        $message .='DB耗时:' . $userTime;
+        $this->_logger->notice($message);
     }
 
     public function beforeInsert($event, $connection)
     {
-
+        $sql = $connection->getSQLStatement();
+        $this->_profiler->startProfile($sql);
     }
 
     public function afterInsert($event, $connection)
     {
-
+        $this->_profiler->stopProfile();
+        $userTime = $this->_profiler->getTotalElapsedSeconds();
+        $this->_app->_dbOpTime += $userTime;
+        $message = 'execute sql:' . $connection->getSQLStatement() . "\n";
+        $message .='DB耗时:' . $userTime;
+        $this->_logger->notice($message);
     }
 
     public function beforeUpdate($event, $connection)
     {
-
+        $sql = $connection->getSQLStatement();
+        $this->_profiler->startProfile($sql);
     }
 
     public function afterUpdate($event, $connection)
     {
-
+        $this->_profiler->stopProfile();
+        $userTime = $this->_profiler->getTotalElapsedSeconds();
+        $this->_app->_dbOpTime += $userTime;
+        $message = 'execute sql:' . $connection->getSQLStatement() . "\n";
+        $message .='DB耗时:' . $userTime;
+        $this->_logger->notice($message);
     }
 
     public function getProfiler()
