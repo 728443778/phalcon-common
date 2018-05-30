@@ -35,6 +35,7 @@ class Apcu extends \Phalcon\Cache\Backend\Apcu
      * Increment of a given key, by number $value
      *
      * @param string keyName
+     * @return bool
      */
     public function increment($keyName=null, $value=null)
     {
@@ -50,6 +51,7 @@ class Apcu extends \Phalcon\Cache\Backend\Apcu
      * Decrement of a given key, by number $value
      *
      * @param string keyName
+     * @return  bool
      */
     public function decrement($keyName=null, $value=null)
     {
@@ -57,5 +59,6 @@ class Apcu extends \Phalcon\Cache\Backend\Apcu
         if (!$flag) {
             Application::getApp()->getLogger()->debug('apcu decrement failed :' . $keyName);
         }
+        return true;
     }
 }
