@@ -100,10 +100,8 @@ function exception_handler($e)
         $loader->setEventsManager($loadEventManager);
 
         $events = new \app\common\events\ApplicationEvent();
-        $dbEvents = new \app\common\events\DbEvents();
         $manager = new \Phalcon\Events\Manager();
         $manager->attach('application', $events);
-        $manager->attach('db', $dbEvents);
         $application->setEventsManager($manager);
 
     }

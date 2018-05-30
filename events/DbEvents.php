@@ -47,6 +47,36 @@ class DbEvents
         }
     }
 
+    public function beforeDelete($event, $connection)
+    {
+
+    }
+
+    public function afterDelete($event, $connection)
+    {
+
+    }
+
+    public function beforeInsert($event, $connection)
+    {
+
+    }
+
+    public function afterInsert($event, $connection)
+    {
+
+    }
+
+    public function beforeUpdate($event, $connection)
+    {
+
+    }
+
+    public function afterUpdate($event, $connection)
+    {
+
+    }
+
     public function getProfiler()
     {
         return $this->_profiler;
