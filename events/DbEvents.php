@@ -3,7 +3,6 @@
 namespace app\common\events;
 
 use app\common\libs\Application;
-use Phalcon\Db\Profiler;
 
 class DbEvents
 {
@@ -21,7 +20,6 @@ class DbEvents
 
     public function __construct()
     {
-        $this->_profiler = new Profiler();
         $this->_app = $application  = Application::getApp();
         $this->_logger = $application->getDI()->getShared('logger');
     }
@@ -30,20 +28,20 @@ class DbEvents
     {
         if ($this->_app->debug || $this->_app->profile) {
             ++$this->_app->_dbCount;
+            $sql = $connection->getSQLStatement();
             $this->_logger->notice('execute sql:' . $connection->getSQLStatement());
-            $this->_profiler->startProfile($connection->getSQLStatement());
+            \app\common\events\Profiler::getInstance()->start($sql);
         }
     }
 
     public function afterQuery($event, $connection)
     {
         if ($this->_app->debug || $this->_app->profile) {
-            $this->_profiler->stopProfile();
-            $userTime = $this->_profiler->getTotalElapsedSeconds();
-            $this->_app->_dbOpTime += $userTime;
-            $message = 'sql:' . $connection->getSQLStatement() . "\n";
-            $message .='DB耗时:' . $userTime;
-            $this->_profiler->reset();
+            $sql = $connection->getSQLStatement();
+            $profierResult = Profiler::getInstance()->end($sql);
+            Application::getApp()->_dbOpTime += $profierResult['use_time'];
+            $message = 'sql:' . $sql . "\n";
+            $message .='DB耗时:' . $profierResult['use_time'];
             $this->_logger->notice($message);
         }
     }
@@ -51,17 +49,16 @@ class DbEvents
     public function beforeDelete($event, $connection)
     {
         $sql = $connection->getSQLStatement();
-        $this->_profiler->startProfile($sql);
+        Profiler::getInstance()->start($sql);
     }
 
     public function afterDelete($event, $connection)
     {
-        $this->_profiler->stopProfile();
-        $userTime = $this->_profiler->getTotalElapsedSeconds();
-        $this->_app->_dbOpTime += $userTime;
-        $message = 'execute sql:' . $connection->getSQLStatement() . "\n";
-        $message .='DB耗时:' . $userTime;
-        $this->_profiler->reset();
+        $sql = $connection->getSQLStatement();
+        $profierResult = Profiler::getInstance()->end($sql);
+        Application::getApp()->_dbOpTime += $profierResult['use_time'];
+        $message = 'sql:' . $sql . "\n";
+        $message .='DB耗时:' . $profierResult['use_time'];
         $this->_logger->notice($message);
     }
 
@@ -73,12 +70,11 @@ class DbEvents
 
     public function afterInsert($event, $connection)
     {
-        $this->_profiler->stopProfile();
-        $userTime = $this->_profiler->getTotalElapsedSeconds();
-        $this->_app->_dbOpTime += $userTime;
-        $message = 'execute sql:' . $connection->getSQLStatement() . "\n";
-        $message .='DB耗时:' . $userTime;
-        $this->_profiler->reset();
+        $sql = $connection->getSQLStatement();
+        $profierResult = Profiler::getInstance()->end($sql);
+        Application::getApp()->_dbOpTime += $profierResult['use_time'];
+        $message = 'sql:' . $sql . "\n";
+        $message .='DB耗时:' . $profierResult['use_time'];
         $this->_logger->notice($message);
     }
 
@@ -90,12 +86,11 @@ class DbEvents
 
     public function afterUpdate($event, $connection)
     {
-        $this->_profiler->stopProfile();
-        $userTime = $this->_profiler->getTotalElapsedSeconds();
-        $this->_app->_dbOpTime += $userTime;
-        $message = 'execute sql:' . $connection->getSQLStatement() . "\n";
-        $message .='DB耗时:' . $userTime;
-        $this->_profiler->reset();
+        $sql = $connection->getSQLStatement();
+        $profierResult = Profiler::getInstance()->end($sql);
+        Application::getApp()->_dbOpTime += $profierResult['use_time'];
+        $message = 'sql:' . $sql . "\n";
+        $message .='DB耗时:' . $profierResult['use_time'];
         $this->_logger->notice($message);
     }
 
