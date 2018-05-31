@@ -43,6 +43,7 @@ class DbEvents
             $this->_app->_dbOpTime += $userTime;
             $message = 'sql:' . $connection->getSQLStatement() . "\n";
             $message .='DB耗时:' . $userTime;
+            $this->_profiler->reset();
             $this->_logger->notice($message);
         }
     }
@@ -60,6 +61,7 @@ class DbEvents
         $this->_app->_dbOpTime += $userTime;
         $message = 'execute sql:' . $connection->getSQLStatement() . "\n";
         $message .='DB耗时:' . $userTime;
+        $this->_profiler->reset();
         $this->_logger->notice($message);
     }
 
@@ -76,6 +78,7 @@ class DbEvents
         $this->_app->_dbOpTime += $userTime;
         $message = 'execute sql:' . $connection->getSQLStatement() . "\n";
         $message .='DB耗时:' . $userTime;
+        $this->_profiler->reset();
         $this->_logger->notice($message);
     }
 
@@ -92,6 +95,7 @@ class DbEvents
         $this->_app->_dbOpTime += $userTime;
         $message = 'execute sql:' . $connection->getSQLStatement() . "\n";
         $message .='DB耗时:' . $userTime;
+        $this->_profiler->reset();
         $this->_logger->notice($message);
     }
 
