@@ -12,18 +12,19 @@ namespace app\common\libs;
 
 class Apcu extends \Phalcon\Cache\Backend\Apcu
 {
+
     /**
      * Stores cached content into the APCu backend and stops the frontend
      *
-     * @param string|int keyName
-     * @param string content
-     * @param int lifetime
-     * @param boolean stopBuffer
+     * @param string|int $keyName
+     * @param string $content
+     * @param int $lifetime
+     * @param boolean $stopBuffer
      * @return bool
      */
     public function save($keyName=null, $content=null, $lifetime=null, $stopBuffer=null)
     {
-        $flag = parent::save($keyName, $content, $lifetime, $stopBuffer);
+        $flag = apcu_store($keyName, $content, $lifetime);
         if (!$flag) {
             Application::getApp()->getLogger()->debug('apcu save failed :' . $keyName);
         }
@@ -34,13 +35,15 @@ class Apcu extends \Phalcon\Cache\Backend\Apcu
     /**
      * Increment of a given key, by number $value
      *
-     * @param string keyName
+     * @param string $keyName
+     * @param float $value
      * @return bool
      */
-    public function increment($keyName=null, $value=null)
+    public function increment($keyName=null, $value=1)
     {
-        $flag = parent::increment($keyName, $value);
-        if (!$flag) {
+        $sucess = false;
+        apcu_inc($keyName, $value, $sucess);
+        if (!$sucess) {
             Application::getApp()->getLogger()->debug('apcu increment failed :' . $keyName);
         }
         return true;
@@ -50,13 +53,14 @@ class Apcu extends \Phalcon\Cache\Backend\Apcu
     /**
      * Decrement of a given key, by number $value
      *
-     * @param string keyName
+     * @param string $keyName
      * @return  bool
      */
-    public function decrement($keyName=null, $value=null)
+    public function decrement($keyName=null, $value=1)
     {
-        $flag = parent::decrement($keyName, $value);
-        if (!$flag) {
+        $success = false;
+        apcu_dec($keyName, $value, $success);
+        if (!$success) {
             Application::getApp()->getLogger()->debug('apcu decrement failed :' . $keyName);
         }
         return true;
