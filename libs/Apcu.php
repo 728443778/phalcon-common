@@ -24,9 +24,13 @@ class Apcu extends \Phalcon\Cache\Backend\Apcu
      */
     public function save($keyName=null, $content=null, $lifetime=null, $stopBuffer=null)
     {
-        $flag = apcu_store($keyName, $content, $lifetime);
-        if (!$flag) {
+        try {
+            $flag = parent::save($keyName, $content, $lifetime, $stopBuffer);
+            if (!$flag) {
             Application::getApp()->getLogger()->debug('apcu save failed :' . $keyName);
+        }
+        } catch (\Exception $exception) {
+            Application::getApp()->getLogger()->debug('apcu save failed :' . $keyName. ',Exception is:' . $exception->getMessage());
         }
         return true;
     }
@@ -41,10 +45,13 @@ class Apcu extends \Phalcon\Cache\Backend\Apcu
      */
     public function increment($keyName=null, $value=1)
     {
-        $sucess = false;
-        apcu_inc($keyName, $value, $sucess);
-        if (!$sucess) {
-            Application::getApp()->getLogger()->debug('apcu increment failed :' . $keyName);
+        try {
+            $flag = parent::increment($keyName, $value);
+            if (!$flag) {
+                Application::getApp()->getLogger()->debug('apcu increment failed :' . $keyName);
+            }
+        } catch (\Exception $exception) {
+            Application::getApp()->getLogger()->debug('apcu save increment :' . $keyName. ',Exception is:' . $exception->getMessage());
         }
         return true;
     }
@@ -58,10 +65,13 @@ class Apcu extends \Phalcon\Cache\Backend\Apcu
      */
     public function decrement($keyName=null, $value=1)
     {
-        $success = false;
-        apcu_dec($keyName, $value, $success);
-        if (!$success) {
-            Application::getApp()->getLogger()->debug('apcu decrement failed :' . $keyName);
+        try {
+            $flag = parent::decrement($keyName, $value);
+            if (!$flag) {
+                Application::getApp()->getLogger()->debug('apcu decrement failed :' . $keyName);
+            }
+        } catch (\Exception $exception) {
+            Application::getApp()->getLogger()->debug('apcu save decrement :' . $keyName. ',Exception is:' . $exception->getMessage());
         }
         return true;
     }

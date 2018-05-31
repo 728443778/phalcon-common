@@ -13,6 +13,7 @@ if ($cache->save('key1', [1,2,3,4,5])) {
 }
 
 $result = $cache->get('key1');
+var_dump($result);
 if ($result) {
     echo 'get ok',PHP_EOL;
     var_dump($result);
