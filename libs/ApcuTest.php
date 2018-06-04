@@ -11,12 +11,11 @@ if ($cache->save('key1', [1,2,3,4,5])) {
 } else {
     echo 'store failed',PHP_EOL;
 }
-
+var_dump(apcu_fetch('key1'));
+var_dump(apcu_cache_info());
 $result = $cache->get('key1');
-var_dump($result);
 if ($result) {
     echo 'get ok',PHP_EOL;
-    var_dump($result);
 } else {
     echo 'get failed',PHP_EOL;
 }
