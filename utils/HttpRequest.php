@@ -16,11 +16,12 @@ class HttpRequest extends \sevenUtils\HttpRequest
     public function __construct()
     {
         parent::__construct();
-        $this->_logger = Application::getApp()->logger;
+        $this->_logger = Application::getApp()->getLogger();
     }
 
     public function beforeRequest($Url, $data = [])
     {
+        $this->_logger = Application::getApp()->getLogger();
         $this->url = $Url;
         if (Application::getApp()->debug || Application::getApp()->profile) {
             ++Application::getApp()->_httpRequestCount;
