@@ -60,7 +60,7 @@ class Redis extends \Phalcon\Cache\Backend\Redis
     public function save($keyName = null, $content = null, $lifetime = null, $stopBuffer = true)
     {
         $key = $this->getKey($keyName);
-        $this->_cache[$key] = $content;
+//        $this->_cache[$key] = $content;
         return parent::save($key, $content, $lifetime, $stopBuffer);
     }
 
