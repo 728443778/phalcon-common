@@ -367,7 +367,7 @@ class Collection extends \Phalcon\Di\Injectable
     /**
      * @param array $filter
      * @param array $options
-     * @eg 只查询某些字段 $options = ['projects' => ['_id' => 1,'status'=>1]]; //返回_id,status
+     * @eg 只查询某些字段 $options = ['projection' => ['_id' => 1,'status'=>1]]; //返回_id,status
      * @eg 在数组中查询某个索引的字段的值 $filter = ['countries.0.name' => 'china'];
      * @eg 在数组中查询某个字段等于某个值的所有数据  $filter = ['countries' => ['$elemMatch' => ['name' => 'china']
      * @return \MongoDB\Driver\Cursor
