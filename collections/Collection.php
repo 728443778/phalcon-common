@@ -99,6 +99,7 @@ class Collection extends \Phalcon\Di\Injectable
             ++Application::getApp()->_collectionCount;
             Application::getApp()->_collectionTime += $profierResult['use_time'];
             $profierResult['where'] = $filter;
+            $profierResult['options'] = $options;
             $collectionName = $this->_collection->getCollectionName();
             $dbs = $this->_collection->getDatabaseName();
             Application::getApp()->getLogger()->notice("{$dbs}.{$collectionName}.deleteOne:" . json_encode($profierResult));
@@ -126,6 +127,7 @@ class Collection extends \Phalcon\Di\Injectable
             ++Application::getApp()->_collectionCount;
             Application::getApp()->_collectionTime += $profierResult['use_time'];
             $profierResult['where'] = $filter;
+            $profierResult['options'] = $options;
             $collectionName = $this->_collection->getCollectionName();
             $dbs = $this->_collection->getDatabaseName();
             Application::getApp()->getLogger()->notice("{$dbs}.{$collectionName}.deleteMany:" . json_encode($profierResult));
@@ -152,6 +154,7 @@ class Collection extends \Phalcon\Di\Injectable
             ++Application::getApp()->_collectionCount;
             Application::getApp()->_collectionTime += $profierResult['use_time'];
             $profierResult['index'] = $key;
+            $profierResult['options'] = $options;
             $collectionName = $this->_collection->getCollectionName();
             $dbs = $this->_collection->getDatabaseName();
             Application::getApp()->getLogger()->notice("{$dbs}.{$collectionName}.createIndex:" . json_encode($profierResult));
@@ -182,6 +185,7 @@ class Collection extends \Phalcon\Di\Injectable
             ++Application::getApp()->_collectionCount;
             Application::getApp()->_collectionTime += $profierResult['use_time'];
             $profierResult['indexes'] = $keys;
+            $profierResult['options'] = $options;
             $collectionName = $this->_collection->getCollectionName();
             $dbs = $this->_collection->getDatabaseName();
             Application::getApp()->getLogger()->notice("{$dbs}.{$collectionName}.createIndexes" . json_encode($profierResult));
@@ -221,6 +225,7 @@ class Collection extends \Phalcon\Di\Injectable
             ++Application::getApp()->_collectionCount;
             Application::getApp()->_collectionTime += $profierResult['use_time'];
             $profierResult['data'] = $data;
+            $profierResult['options'] = $options;
             $collectionName = $this->_collection->getCollectionName();
             $dbs = $this->_collection->getDatabaseName();
             Application::getApp()->getLogger()->notice("{$dbs}.{$collectionName}.insertOne:" . json_encode($profierResult));
@@ -247,6 +252,7 @@ class Collection extends \Phalcon\Di\Injectable
             ++Application::getApp()->_collectionCount;
             Application::getApp()->_collectionTime += $profierResult['use_time'];
             $profierResult['datas'] = $datas;
+            $profierResult['options'] = $options;
             $collectionName = $this->_collection->getCollectionName();
             $dbs = $this->_collection->getDatabaseName();
             Application::getApp()->getLogger()->notice("{$dbs}.{$collectionName}.insertMany:" . json_encode($profierResult));
@@ -275,6 +281,7 @@ class Collection extends \Phalcon\Di\Injectable
             ++Application::getApp()->_collectionCount;
             Application::getApp()->_collectionTime += $profierResult['use_time'];
             $profierResult['where'] = $filter;
+            $profierResult['options'] = $options;
             $collectionName = $this->_collection->getCollectionName();
             $dbs = $this->_collection->getDatabaseName();
             Application::getApp()->getLogger()->notice("{$dbs}.{$collectionName}.updateOne:" . json_encode($profierResult));
@@ -304,6 +311,7 @@ class Collection extends \Phalcon\Di\Injectable
             ++Application::getApp()->_collectionCount;
             Application::getApp()->_collectionTime += $profierResult['use_time'];
             $profierResult['where'] = $filter;
+            $profierResult['options'] = $options;
             $collectionName = $this->_collection->getCollectionName();
             $dbs = $this->_collection->getDatabaseName();
             Application::getApp()->getLogger()->notice("{$dbs}.{$collectionName}.updateMany:" . json_encode($profierResult));
@@ -348,6 +356,7 @@ class Collection extends \Phalcon\Di\Injectable
             ++Application::getApp()->_collectionCount;
             Application::getApp()->_collectionTime += $profierResult['use_time'];
             $profierResult['where'] = $filter;
+            $profierResult['options'] = $options;
             $collectionName = $this->_collection->getCollectionName();
             $dbs = $this->_collection->getDatabaseName();
             Application::getApp()->getLogger()->notice("{$dbs}.{$collectionName}.findOne:" . json_encode($profierResult));
@@ -374,6 +383,7 @@ class Collection extends \Phalcon\Di\Injectable
             ++Application::getApp()->_collectionCount;
             Application::getApp()->_collectionTime += $profierResult['use_time'];
             $profierResult['where'] = $filter;
+            $profierResult['options'] = $options;
             $collectionName = $this->_collection->getCollectionName();
             $dbs = $this->_collection->getDatabaseName();
             Application::getApp()->getLogger()->notice("{$dbs}.{$collectionName}.find:". json_encode($profierResult));
@@ -400,6 +410,7 @@ class Collection extends \Phalcon\Di\Injectable
             Application::getApp()->_collectionTime += $profierResult['use_time'];
             $profierResult['where'] = $filter;
             $profierResult['replaceData'] = $replaceData;
+            $profierResult['options'] = $options;
             $collectionName = $this->_collection->getCollectionName();
             $dbs = $this->_collection->getDatabaseName();
             Application::getApp()->getLogger()->notice("{$dbs}.{$collectionName}.findOneReplace:" . json_encode($profierResult));
@@ -426,6 +437,7 @@ class Collection extends \Phalcon\Di\Injectable
             Application::getApp()->_collectionTime += $profierResult['use_time'];
             $collectionName = $this->_collection->getCollectionName();
             $profierResult['index'] = $indexName;
+            $profierResult['options'] = $options;
             $dbs = $this->_collection->getDatabaseName();
             Application::getApp()->getLogger()->notice("{$dbs}.{$collectionName}.dropIndex:" . json_encode($profierResult));
         }
