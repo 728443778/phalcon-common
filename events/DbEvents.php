@@ -34,7 +34,7 @@ class DbEvents
         if ($this->_app->debug || $this->_app->profile) {
             ++$this->_app->_dbCount;
             $sql = $this->getSql($connection);
-            $this->_logger->notice('sql:' . $sql);
+//            $this->_logger->notice('before sql:' . $sql);
             \app\common\events\Profiler::getInstance()->start($sql);
         }
     }
