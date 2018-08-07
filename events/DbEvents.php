@@ -45,7 +45,7 @@ class DbEvents
             $sql = $this->getSql($connection);
             $profierResult = Profiler::getInstance()->end($sql);
             Application::getApp()->_dbOpTime += $profierResult['use_time'];
-            $message = 'sql:' . $sql . "\n";
+            $message = 'sql:' . $sql . ';';
             $message .='DB耗时:' . $profierResult['use_time'];
             $this->_logger->notice($message);
         }
@@ -62,7 +62,7 @@ class DbEvents
         $sql = $this->getSql($connection);
         $profierResult = Profiler::getInstance()->end($sql);
         Application::getApp()->_dbOpTime += $profierResult['use_time'];
-        $message = 'sql:' . $sql . "\n";
+        $message = 'sql:' . $sql . ';';
         $message .='DB耗时:' . $profierResult['use_time'];
         $this->_logger->notice($message);
     }
@@ -86,7 +86,7 @@ class DbEvents
         $sql = $this->getSql($connection);
         $profierResult = Profiler::getInstance()->end($sql);
         Application::getApp()->_dbOpTime += $profierResult['use_time'];
-        $message = 'sql:' . $sql . "\n";
+        $message = 'sql:' . $sql . ';';
         $message .='DB耗时:' . $profierResult['use_time'];
         $this->_logger->notice($message);
     }
@@ -102,7 +102,7 @@ class DbEvents
         $sql = $this->getSql($connection);
         $profierResult = Profiler::getInstance()->end($sql);
         Application::getApp()->_dbOpTime += $profierResult['use_time'];
-        $message = 'sql:' . $sql . "\n";
+        $message = 'sql:' . $sql . ';';
         $message .='DB耗时:' . $profierResult['use_time'];
         $this->_logger->notice($message);
     }
