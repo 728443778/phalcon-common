@@ -3,6 +3,7 @@
 namespace app\common\events;
 
 use app\common\libs\Application;
+use Phalcon\Db\Adapter\Pdo\Mysql;
 
 class DbEvents
 {
@@ -24,12 +25,16 @@ class DbEvents
         $this->_logger = $application->getDI()->getShared('logger');
     }
 
+    /**
+     * @param $event
+     * @param $connection Mysql
+     */
     public function beforeQuery($event, $connection)
     {
         if ($this->_app->debug || $this->_app->profile) {
             ++$this->_app->_dbCount;
-            $sql = $connection->getSQLStatement();
-            $this->_logger->notice('execute sql:' . $connection->getSQLStatement());
+            $sql = $connection->getRealSQLStatement();
+            $this->_logger->notice('execute sql:' . $connection->getRealSQLStatement());
             \app\common\events\Profiler::getInstance()->start($sql);
         }
     }
@@ -37,7 +42,7 @@ class DbEvents
     public function afterQuery($event, $connection)
     {
         if ($this->_app->debug || $this->_app->profile) {
-            $sql = $connection->getSQLStatement();
+            $sql = $connection->getRealSQLStatement();
             $profierResult = Profiler::getInstance()->end($sql);
             Application::getApp()->_dbOpTime += $profierResult['use_time'];
             $message = 'sql:' . $sql . "\n";
@@ -48,13 +53,13 @@ class DbEvents
 
     public function beforeDelete($event, $connection)
     {
-        $sql = $connection->getSQLStatement();
+        $sql = $connection->getRealSQLStatement();
         Profiler::getInstance()->start($sql);
     }
 
     public function afterDelete($event, $connection)
     {
-        $sql = $connection->getSQLStatement();
+        $sql = $connection->getRealSQLStatement();
         $profierResult = Profiler::getInstance()->end($sql);
         Application::getApp()->_dbOpTime += $profierResult['use_time'];
         $message = 'sql:' . $sql . "\n";
@@ -64,13 +69,13 @@ class DbEvents
 
     public function beforeInsert($event, $connection)
     {
-        $sql = $connection->getSQLStatement();
+        $sql = $connection->getRealSQLStatement();
         $this->_profiler->startProfile($sql);
     }
 
     public function afterInsert($event, $connection)
     {
-        $sql = $connection->getSQLStatement();
+        $sql = $connection->getRealSQLStatement();
         $profierResult = Profiler::getInstance()->end($sql);
         Application::getApp()->_dbOpTime += $profierResult['use_time'];
         $message = 'sql:' . $sql . "\n";
@@ -80,13 +85,13 @@ class DbEvents
 
     public function beforeUpdate($event, $connection)
     {
-        $sql = $connection->getSQLStatement();
+        $sql = $connection->getRealSQLStatement();
         $this->_profiler->startProfile($sql);
     }
 
     public function afterUpdate($event, $connection)
     {
-        $sql = $connection->getSQLStatement();
+        $sql = $connection->getRealSQLStatement();
         $profierResult = Profiler::getInstance()->end($sql);
         Application::getApp()->_dbOpTime += $profierResult['use_time'];
         $message = 'sql:' . $sql . "\n";
