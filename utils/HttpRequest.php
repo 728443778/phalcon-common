@@ -27,7 +27,7 @@ class HttpRequest extends \sevenUtils\HttpRequest
             ++Application::getApp()->_httpRequestCount;
             Profiler::getInstance()->start($Url);
 
-            $this->_logger->notice('http reqeust:' . $Url);
+            $this->_logger->notice('http request:' . $Url);
             $this->_logger->notice('data:' . json_encode($data));
         }
     }
