@@ -92,7 +92,8 @@ class Application extends \Phalcon\Mvc\Application
                 'post_param' => $_POST,
                 'origin_body_data' => file_get_contents('php://input'),
                 'headers' => $request->getHeaders(),
-                'client_addrs' => $request->getClientAddress()
+                'client_addrs' => $request->getClientAddress(),
+                'x-ip' => $this->getRequestIp(),
             ];
             $this->logger->notice(json_encode($data));
         }
