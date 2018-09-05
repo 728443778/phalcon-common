@@ -15,7 +15,6 @@ class HttpRequest extends \sevenUtils\HttpRequest
 
     public function __construct()
     {
-        parent::__construct();
         $this->_logger = Application::getApp()->getLogger();
     }
 
