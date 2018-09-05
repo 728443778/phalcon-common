@@ -19,6 +19,8 @@ function php_error_handler($errno, $errstr, $errfile, $errline)
 //    $content = $application->view->render('public', 'error');
     $content = [
         'code' => $errno,
+        'msg' => '',
+        'data' => [],
     ];
     if ($content['code'] == 0) {
         $content['code'] = 501;
@@ -36,7 +38,10 @@ function exception_handler($e)
 {
     global $di;
     global $application;
-    $content = [];
+    $content = [
+        'msg' => '',
+        'data' => []
+    ];
     if ($e instanceof \Phalcon\Mvc\Dispatcher\Exception) {
         $content['message'] = 'Not Found';
         $content['router'] = $application->dispatcher->getControllerName() . '/' . $application->dispatcher->getActionName();
