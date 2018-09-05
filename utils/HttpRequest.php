@@ -4,6 +4,7 @@ namespace app\common\utils;
 
 use app\common\events\Profiler;
 use app\common\libs\Application;
+use function MongoDB\is_string_array;
 
 class HttpRequest extends \sevenUtils\HttpRequest
 {
@@ -15,7 +16,6 @@ class HttpRequest extends \sevenUtils\HttpRequest
 
     public function __construct()
     {
-        parent::__construct();
         $this->_logger = Application::getApp()->getLogger();
     }
 
@@ -27,8 +27,13 @@ class HttpRequest extends \sevenUtils\HttpRequest
             ++Application::getApp()->_httpRequestCount;
             Profiler::getInstance()->start($Url);
 
-            $this->_logger->notice('http reqeust:' . $Url);
-            $this->_logger->notice('data:' . json_encode($data));
+            $this->_logger->notice('http request:' . $Url);
+            if (!is_string($data)) {
+                $this->_logger->notice('json_encode_data:' . json_encode($data));
+            } else {
+                $this->_logger->notice('data:' . $data);
+
+            }
         }
     }
 
