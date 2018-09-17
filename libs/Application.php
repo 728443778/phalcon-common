@@ -233,7 +233,7 @@ class Application extends \Phalcon\Mvc\Application
                 'body' => $content,
 
             ];
-            $this->logger->debug('Response:' . json_encode($response));
+            $this->logger->notice('Response:' . json_encode($response));
             $this->logger->notice('Autoload file count:' . $this->_loadFileCount);
             if ($this->_dbCount != 0) {
                 $dbMessage = 'mysql operate count:' . $this->_dbCount . '; time:' . $this->_dbOpTime;
