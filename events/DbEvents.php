@@ -47,7 +47,7 @@ class DbEvents
             Application::getApp()->_dbOpTime += $profierResult['use_time'];
             $message = 'sql:' . $sql . ';';
             $message .='DB耗时:' . $profierResult['use_time'];
-            $this->_logger->notice($message);
+            $this->_logger->info($message);
         }
     }
 
@@ -64,7 +64,7 @@ class DbEvents
         Application::getApp()->_dbOpTime += $profierResult['use_time'];
         $message = 'sql:' . $sql . ';';
         $message .='DB耗时:' . $profierResult['use_time'];
-        $this->_logger->notice($message);
+        $this->_logger->info($message);
     }
 
     public function beforeInsert($event, $connection)
@@ -88,7 +88,7 @@ class DbEvents
         Application::getApp()->_dbOpTime += $profierResult['use_time'];
         $message = 'sql:' . $sql . ';';
         $message .='DB耗时:' . $profierResult['use_time'];
-        $this->_logger->notice($message);
+        $this->_logger->info($message);
     }
 
     public function beforeUpdate($event, $connection)
@@ -104,7 +104,7 @@ class DbEvents
         Application::getApp()->_dbOpTime += $profierResult['use_time'];
         $message = 'sql:' . $sql . ';';
         $message .='DB耗时:' . $profierResult['use_time'];
-        $this->_logger->notice($message);
+        $this->_logger->info($message);
     }
 
     public function getProfiler()
@@ -125,7 +125,7 @@ class DbEvents
                 'level' => $connection->getTransactionLevel()
             ]);
             \app\common\events\Profiler::getInstance()->start($key);
-            $this->_logger->notice('start transaction:' . $key);
+            $this->_logger->info('start transaction:' . $key);
         }
     }
 
@@ -142,9 +142,9 @@ class DbEvents
                 'level' => $connection->getTransactionLevel()
             ]);
             $result = \app\common\events\Profiler::getInstance()->end($key);
-            $this->_logger->notice('commit transaction:');
+            $this->_logger->info('commit transaction:');
             if ($result) {
-                $this->_logger->notice($key . '=>' . json_encode($result));
+                $this->_logger->info($key . '=>' . json_encode($result));
             }
         }
     }
@@ -162,9 +162,9 @@ class DbEvents
                 'level' => $connection->getTransactionLevel()
             ]);
             $result = \app\common\events\Profiler::getInstance()->end($key);
-            $this->_logger->notice('rollback transaction');
+            $this->_logger->info('rollback transaction');
             if ($result) {
-                $this->_logger->notice($key . '=>' . json_encode($result));
+                $this->_logger->info($key . '=>' . json_encode($result));
             }
         }
     }

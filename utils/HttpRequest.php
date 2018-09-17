@@ -27,11 +27,11 @@ class HttpRequest extends \sevenUtils\HttpRequest
             ++Application::getApp()->_httpRequestCount;
             Profiler::getInstance()->start($Url);
 
-            $this->_logger->notice('http request:' . $Url);
+            $this->_logger->info('http request:' . $Url);
             if (!is_string($data)) {
-                $this->_logger->notice('json_encode_data:' . json_encode($data));
+                $this->_logger->info('json_encode_data:' . json_encode($data));
             } else {
-                $this->_logger->notice('data:' . $data);
+                $this->_logger->info('data:' . $data);
 
             }
         }
@@ -43,8 +43,8 @@ class HttpRequest extends \sevenUtils\HttpRequest
             $result = Profiler::getInstance()->end($this->url);
             Application::getApp()->_httpRequestTime += $result['use_time'];
             $logData = 'http end:' . $this->url . '=>' . json_encode($result);
-            $this->_logger->notice($logData);
-            $this->_logger->notice('response:' . $response);
+            $this->_logger->info($logData);
+            $this->_logger->info('response:' . $response);
         }
         if ($this->_returnArrayByJsonDecode) {
             $response = json_decode($response, true);

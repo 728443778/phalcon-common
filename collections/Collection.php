@@ -102,7 +102,7 @@ class Collection extends \Phalcon\Di\Injectable
             $profierResult['options'] = $options;
             $collectionName = $this->_collection->getCollectionName();
             $dbs = $this->_collection->getDatabaseName();
-            Application::getApp()->getLogger()->notice("{$dbs}.{$collectionName}.deleteOne:" . json_encode($profierResult));
+            Application::getApp()->getLogger()->info("{$dbs}.{$collectionName}.deleteOne:" . json_encode($profierResult));
         }
         if ($result->getDeletedCount() < 1) {
             return false;
@@ -130,7 +130,7 @@ class Collection extends \Phalcon\Di\Injectable
             $profierResult['options'] = $options;
             $collectionName = $this->_collection->getCollectionName();
             $dbs = $this->_collection->getDatabaseName();
-            Application::getApp()->getLogger()->notice("{$dbs}.{$collectionName}.deleteMany:" . json_encode($profierResult));
+            Application::getApp()->getLogger()->info("{$dbs}.{$collectionName}.deleteMany:" . json_encode($profierResult));
         }
         if ($result->getDeletedCount() < 1) {
             return false;
@@ -157,7 +157,7 @@ class Collection extends \Phalcon\Di\Injectable
             $profierResult['options'] = $options;
             $collectionName = $this->_collection->getCollectionName();
             $dbs = $this->_collection->getDatabaseName();
-            Application::getApp()->getLogger()->notice("{$dbs}.{$collectionName}.createIndex:" . json_encode($profierResult));
+            Application::getApp()->getLogger()->info("{$dbs}.{$collectionName}.createIndex:" . json_encode($profierResult));
         }
         $result = $this->_collection->createIndex($key, $options);
         if (!$result || empty($result)) {
@@ -188,7 +188,7 @@ class Collection extends \Phalcon\Di\Injectable
             $profierResult['options'] = $options;
             $collectionName = $this->_collection->getCollectionName();
             $dbs = $this->_collection->getDatabaseName();
-            Application::getApp()->getLogger()->notice("{$dbs}.{$collectionName}.createIndexes" . json_encode($profierResult));
+            Application::getApp()->getLogger()->info("{$dbs}.{$collectionName}.createIndexes" . json_encode($profierResult));
         }
         if (!$result || empty($result)) {
             return false;
@@ -228,7 +228,7 @@ class Collection extends \Phalcon\Di\Injectable
             $profierResult['options'] = $options;
             $collectionName = $this->_collection->getCollectionName();
             $dbs = $this->_collection->getDatabaseName();
-            Application::getApp()->getLogger()->notice("{$dbs}.{$collectionName}.insertOne:" . json_encode($profierResult));
+            Application::getApp()->getLogger()->info("{$dbs}.{$collectionName}.insertOne:" . json_encode($profierResult));
         }
         if ($result->getInsertedCount() < 1) {
             return false;
@@ -255,7 +255,7 @@ class Collection extends \Phalcon\Di\Injectable
             $profierResult['options'] = $options;
             $collectionName = $this->_collection->getCollectionName();
             $dbs = $this->_collection->getDatabaseName();
-            Application::getApp()->getLogger()->notice("{$dbs}.{$collectionName}.insertMany:" . json_encode($profierResult));
+            Application::getApp()->getLogger()->info("{$dbs}.{$collectionName}.insertMany:" . json_encode($profierResult));
         }
         if ($result->getInsertedCount() < 1) {
             return false;
@@ -284,7 +284,7 @@ class Collection extends \Phalcon\Di\Injectable
             $profierResult['options'] = $options;
             $collectionName = $this->_collection->getCollectionName();
             $dbs = $this->_collection->getDatabaseName();
-            Application::getApp()->getLogger()->notice("{$dbs}.{$collectionName}.updateOne:" . json_encode($profierResult));
+            Application::getApp()->getLogger()->info("{$dbs}.{$collectionName}.updateOne:" . json_encode($profierResult));
         }
         if ($result->getModifiedCount() < 1) {
             return false;
@@ -314,7 +314,7 @@ class Collection extends \Phalcon\Di\Injectable
             $profierResult['options'] = $options;
             $collectionName = $this->_collection->getCollectionName();
             $dbs = $this->_collection->getDatabaseName();
-            Application::getApp()->getLogger()->notice("{$dbs}.{$collectionName}.updateMany:" . json_encode($profierResult));
+            Application::getApp()->getLogger()->info("{$dbs}.{$collectionName}.updateMany:" . json_encode($profierResult));
         }
         if($result->getModifiedCount() < 1) {
             return false;
@@ -334,7 +334,7 @@ class Collection extends \Phalcon\Di\Injectable
             Application::getApp()->_collectionTime += $profierResult['use_time'];
             $collectionName = $this->_collection->getCollectionName();
             $dbs = $this->_collection->getDatabaseName();
-            Application::getApp()->getLogger()->notice("{$dbs}.{$collectionName}.getAllIndexes:" . json_encode($profierResult));
+            Application::getApp()->getLogger()->info("{$dbs}.{$collectionName}.getAllIndexes:" . json_encode($profierResult));
         }
         return $result;
     }
@@ -359,7 +359,7 @@ class Collection extends \Phalcon\Di\Injectable
             $profierResult['options'] = $options;
             $collectionName = $this->_collection->getCollectionName();
             $dbs = $this->_collection->getDatabaseName();
-            Application::getApp()->getLogger()->notice("{$dbs}.{$collectionName}.findOne:" . json_encode($profierResult));
+            Application::getApp()->getLogger()->info("{$dbs}.{$collectionName}.findOne:" . json_encode($profierResult));
         }
         return $result;
     }
@@ -386,7 +386,7 @@ class Collection extends \Phalcon\Di\Injectable
             $profierResult['options'] = $options;
             $collectionName = $this->_collection->getCollectionName();
             $dbs = $this->_collection->getDatabaseName();
-            Application::getApp()->getLogger()->notice("{$dbs}.{$collectionName}.find:". json_encode($profierResult));
+            Application::getApp()->getLogger()->info("{$dbs}.{$collectionName}.find:". json_encode($profierResult));
         }
         return $result;
     }
@@ -413,7 +413,7 @@ class Collection extends \Phalcon\Di\Injectable
             $profierResult['options'] = $options;
             $collectionName = $this->_collection->getCollectionName();
             $dbs = $this->_collection->getDatabaseName();
-            Application::getApp()->getLogger()->notice("{$dbs}.{$collectionName}.findOneReplace:" . json_encode($profierResult));
+            Application::getApp()->getLogger()->info("{$dbs}.{$collectionName}.findOneReplace:" . json_encode($profierResult));
         }
         return $return;
     }
@@ -439,7 +439,7 @@ class Collection extends \Phalcon\Di\Injectable
             $profierResult['index'] = $indexName;
             $profierResult['options'] = $options;
             $dbs = $this->_collection->getDatabaseName();
-            Application::getApp()->getLogger()->notice("{$dbs}.{$collectionName}.dropIndex:" . json_encode($profierResult));
+            Application::getApp()->getLogger()->info("{$dbs}.{$collectionName}.dropIndex:" . json_encode($profierResult));
         }
         return $return;
     }
@@ -461,7 +461,7 @@ class Collection extends \Phalcon\Di\Injectable
             Application::getApp()->_collectionTime += $profierResult['use_time'];
             $collectionName = $this->_collection->getCollectionName();
             $dbs = $this->_collection->getDatabaseName();
-            Application::getApp()->getLogger()->notice("{$dbs}.{$collectionName}.dropAllIndexes:" . json_encode($profierResult));
+            Application::getApp()->getLogger()->info("{$dbs}.{$collectionName}.dropAllIndexes:" . json_encode($profierResult));
         }
         return $return;
     }
@@ -482,7 +482,7 @@ class Collection extends \Phalcon\Di\Injectable
             Application::getApp()->_collectionTime += $profierResult['use_time'];
             $collectionName = $this->_collection->getCollectionName();
             $dbs = $this->_collection->getDatabaseName();
-            Application::getApp()->getLogger()->notice("{$dbs}.{$collectionName}.drop:" . json_encode($profierResult));
+            Application::getApp()->getLogger()->info("{$dbs}.{$collectionName}.drop:" . json_encode($profierResult));
         }
         return $return;
     }

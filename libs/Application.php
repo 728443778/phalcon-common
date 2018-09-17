@@ -83,7 +83,7 @@ class Application extends \Phalcon\Mvc\Application
         if (($config->debug  || $config->profile)&& defined('MVC')) {
             Profiler::getInstance()->start('RequestProfile');
             $time = $this->getRequestTime();
-            $this->logger->notice('Request start:' . date('Y-m-d H:i:s', $time));
+            $this->logger->info('Request start:' . date('Y-m-d H:i:s', $time));
 
             $request = $this->request;
             $data = [
@@ -95,7 +95,7 @@ class Application extends \Phalcon\Mvc\Application
                 'client_addrs' => $request->getClientAddress(),
                 'x-ip' => $this->getRequestIp(),
             ];
-            $this->logger->notice(json_encode($data));
+            $this->logger->info(json_encode($data));
         }
     }
 
@@ -233,24 +233,24 @@ class Application extends \Phalcon\Mvc\Application
                 'body' => $content,
 
             ];
-            $this->logger->notice('Response:' . json_encode($response));
-            $this->logger->notice('Autoload file count:' . $this->_loadFileCount);
+            $this->logger->info('Response:' . json_encode($response));
+            $this->logger->info('Autoload file count:' . $this->_loadFileCount);
             if ($this->_dbCount != 0) {
                 $dbMessage = 'mysql operate count:' . $this->_dbCount . '; time:' . $this->_dbOpTime;
-                $this->logger->notice($dbMessage);
+                $this->logger->info($dbMessage);
             }
 
             if ($this->_httpRequestCount != 0) {
                 $httpMessage = 'http operate count:' . $this->_httpRequestCount . '; use time:' . $this->_httpRequestTime;
-                $this->logger->notice($httpMessage);
+                $this->logger->info($httpMessage);
             }
             if ($this->_collectionCount != 0) {
                 $collectionMessage = 'collection operate count:' . $this->_collectionCount .'; use time:' . $this->_collectionTime;
-                $this->logger->notice($collectionMessage);
+                $this->logger->info($collectionMessage);
             }
             $result = Profiler::getInstance()->end('RequestProfile');
-            $this->logger->notice(json_encode($result));
-            $this->logger->notice('Request end');
+            $this->logger->info(json_encode($result));
+            $this->logger->info('Request end');
         }
     }
 
