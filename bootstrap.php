@@ -114,7 +114,7 @@ function exception_handler($e)
     set_error_handler('php_error_handler');
     set_exception_handler('exception_handler');
 
-    $application->useImplicitView(false);
+    $application->useImplicitView(true);
 
     $response = $application->handle();
 
