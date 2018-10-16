@@ -4,7 +4,10 @@ namespace app\common\libs;
 
 use app\common\events\Profiler;
 use app\common\traits\Services;
+use Phalcon\Cli\Router;
 use Phalcon\DiInterface;
+use Phalcon\Loader;
+use Phalcon\Mvc\Router\Route;
 use sevenUtils\resources\Client;
 
 class Application extends \Phalcon\Mvc\Application
@@ -257,5 +260,22 @@ class Application extends \Phalcon\Mvc\Application
     public function getLogger()
     {
         return $this->getDI()->getShared('logger');
+    }
+
+    /**
+     * @return Loader
+     */
+    public function getLoader()
+    {
+        return $this->di->getShared('loader');
+    }
+
+    /**
+     *
+     * @return Route | Router
+     */
+    public function getRouter()
+    {
+        return $this->di->getShared('router');
     }
 }
