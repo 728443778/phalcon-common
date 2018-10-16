@@ -6,7 +6,7 @@
  * Time: 上午10:25
  */
 
-namespace app\common\libs;
+namespace app\core\libs;
 
 class Yac extends \Phalcon\Cache\Backend
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace app\common\libs;
+namespace app\core\libs;
 
 /**
  * 自己写的一个简单的php程序运行时间，内存耗用内

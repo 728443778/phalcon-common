@@ -1,9 +1,9 @@
 <?php
 
-namespace app\common\collections;
+namespace app\core\collections;
 
-use app\common\events\Profiler;
-use app\common\libs\Application;
+use app\core\events\Profiler;
+use app\core\libs\Application;
 use MongoDB\Client;
 use MongoDB\Database;
 

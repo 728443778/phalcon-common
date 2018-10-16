@@ -1,6 +1,6 @@
 <?php
 
-namespace app\common\events;
+namespace app\core\events;
 
 class Profiler
 {

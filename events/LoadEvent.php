@@ -1,8 +1,8 @@
 <?php
 
-namespace app\common\events;
+namespace app\core\events;
 
-use app\common\libs\Application;
+use app\core\libs\Application;
 use Phalcon\Events\Event;
 use Phalcon\Loader;
 

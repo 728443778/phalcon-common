@@ -1,10 +1,10 @@
 <?php
 
 
-namespace app\common\traits;
+namespace app\core\traits;
 
 
-use app\common\libs\Application;
+use app\core\libs\Application;
 use Phalcon\Http\Request;
 
 trait SecurityAuth
@@ -17,7 +17,7 @@ trait SecurityAuth
 
     protected $authTime;
 
-    public function Auth(Request $request,\app\common\components\SecurityAuth $auth)
+    public function Auth(Request $request,\app\core\components\SecurityAuth $auth)
     {
         $this->authID = (string)$request->getPost('auth_id');
         $this->authToken = (string)$request->getPost('auth_token');

@@ -1,9 +1,9 @@
 <?php
 
-namespace app\common\Logs;
+namespace app\core\Logs;
 
-use app\common\collections\Collection;
-use app\common\libs\Application;
+use app\core\collections\Collection;
+use app\core\libs\Application;
 use Phalcon\Logger;
 use Phalcon\Logger\Adapter\Stream;
 

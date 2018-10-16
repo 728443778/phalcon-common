@@ -1,8 +1,8 @@
 <?php
 
-namespace app\common\components;
+namespace app\core\components;
 
-use app\common\traits\Services;
+use app\core\traits\Services;
 
 class User extends \Phalcon\Di\Injectable
 {

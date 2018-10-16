@@ -1,6 +1,6 @@
 <?php
 
-namespace app\common\traits;
+namespace app\core\traits;
 
 /**
  * 适用于任何类

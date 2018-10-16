@@ -1,9 +1,9 @@
 <?php
 
-namespace app\common\utils;
+namespace app\core\utils;
 
-use app\common\events\Profiler;
-use app\common\libs\Application;
+use app\core\events\Profiler;
+use app\core\libs\Application;
 use function MongoDB\is_string_array;
 
 class HttpRequest extends \sevenUtils\HttpRequest
