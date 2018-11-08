@@ -92,8 +92,9 @@ class Application extends \Phalcon\Mvc\Application
                 'post_param' => $_POST,
                 'origin_body_data' => file_get_contents('php://input'),
                 'headers' => $request->getHeaders(),
-                'client_addrs' => $request->getClientAddress(),
-                'x-ip' => $this->getRequestIp(),
+                'client_address' => $request->getClientAddress(true),
+                'X-Forwarded-For' => $request->getHeader('X-Forwarded-For'),
+                'x-ip' => $this->getRequestIp()
             ];
             $this->logger->info(json_encode($data));
         }
