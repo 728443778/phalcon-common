@@ -1,8 +1,8 @@
 <?php
 
-namespace app\common\Logs;
+namespace app\core\Logs;
 
-use app\common\libs\Application;
+use app\core\libs\Application;
 use Phalcon\Logger\Adapter\Stream;
 
 class FileLog extends Stream

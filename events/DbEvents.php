@@ -1,8 +1,8 @@
 <?php
 
-namespace app\common\events;
+namespace app\core\events;
 
-use app\common\libs\Application;
+use app\core\libs\Application;
 use Phalcon\Db\Adapter\Pdo\Mysql;
 
 class DbEvents
@@ -35,7 +35,7 @@ class DbEvents
             ++$this->_app->_dbCount;
             $sql = $this->getSql($connection);
 //            $this->_logger->notice('before sql:' . $sql);
-            \app\common\events\Profiler::getInstance()->start($sql);
+            \app\core\events\Profiler::getInstance()->start($sql);
         }
     }
 
@@ -124,7 +124,7 @@ class DbEvents
                 'connection_id' => $id,
                 'level' => $connection->getTransactionLevel()
             ]);
-            \app\common\events\Profiler::getInstance()->start($key);
+            \app\core\events\Profiler::getInstance()->start($key);
             $this->_logger->info('start transaction:' . $key);
         }
     }
@@ -141,7 +141,7 @@ class DbEvents
                 'connection_id' => $id,
                 'level' => $connection->getTransactionLevel()
             ]);
-            $result = \app\common\events\Profiler::getInstance()->end($key);
+            $result = \app\core\events\Profiler::getInstance()->end($key);
             $this->_logger->info('commit transaction:');
             if ($result) {
                 $this->_logger->info($key . '=>' . json_encode($result));
@@ -161,7 +161,7 @@ class DbEvents
                 'connection_id' => $id,
                 'level' => $connection->getTransactionLevel()
             ]);
-            $result = \app\common\events\Profiler::getInstance()->end($key);
+            $result = \app\core\events\Profiler::getInstance()->end($key);
             $this->_logger->info('rollback transaction');
             if ($result) {
                 $this->_logger->info($key . '=>' . json_encode($result));

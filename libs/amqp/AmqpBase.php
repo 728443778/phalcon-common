@@ -1,9 +1,9 @@
 <?php
 
-namespace app\common\libs\amqp;
+namespace app\core\libs\amqp;
 
 
-use app\common\libs\Application;
+use app\core\libs\Application;
 use Phalcon\Di\Injectable;
 
 class AmqpBase extends Injectable

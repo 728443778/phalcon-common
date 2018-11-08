@@ -8,7 +8,7 @@
  * 因为在使用apcu时，如果失败phalcon会直接退出，这儿重写框架自带的apcu，因为如果失败了，下次重新拉曲数据就行了
  */
 
-namespace app\common\libs;
+namespace app\core\libs;
 
 class Apcu extends \Phalcon\Cache\Backend\Apcu
 {

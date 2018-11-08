@@ -1,6 +1,6 @@
 <?php
 
-namespace app\common\components;
+namespace app\core\components;
 
 
 use Phalcon\Di\Injectable;

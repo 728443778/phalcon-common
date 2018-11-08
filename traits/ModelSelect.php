@@ -1,8 +1,8 @@
 <?php
 
-namespace app\common\traits;
+namespace app\core\traits;
 
-use app\common\libs\Application;
+use app\core\libs\Application;
 
 trait ModelSelect
 {

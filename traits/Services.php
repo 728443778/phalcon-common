@@ -1,8 +1,8 @@
 <?php
 
-namespace app\common\traits;
+namespace app\core\traits;
 
-use app\common\libs\Redis;
+use app\core\libs\Redis;
 use MongoDB\Client;
 use Phalcon\Db\Adapter\Pdo\Mysql;
 use Phalcon\Security;

@@ -96,15 +96,15 @@ function exception_handler($e)
     /**
      * Handle the request
      */
-    $application = \app\common\libs\Application::getApp($di);
+    $application = \app\core\libs\Application::getApp($di);
 
     if ($application->debug || $application->profile) {
-        $loadEvents = new \app\common\events\LoadEvent();
+        $loadEvents = new \app\core\events\LoadEvent();
         $loadEventManager = new \Phalcon\Events\Manager();
         $loadEventManager->attach('loader', $loadEvents);
         $loader->setEventsManager($loadEventManager);
 
-        $events = new \app\common\events\ApplicationEvent();
+        $events = new \app\core\events\ApplicationEvent();
         $manager = new \Phalcon\Events\Manager();
         $manager->attach('application', $events);
         $application->setEventsManager($manager);
@@ -114,7 +114,7 @@ function exception_handler($e)
     set_error_handler('php_error_handler');
     set_exception_handler('exception_handler');
 
-    $application->useImplicitView(false);
+    $application->useImplicitView(true);
 
     $response = $application->handle();
 

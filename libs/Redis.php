@@ -1,6 +1,6 @@
 <?php
 
-namespace app\common\libs;
+namespace app\core\libs;
 
 class Redis extends \Phalcon\Cache\Backend\Redis
 {
