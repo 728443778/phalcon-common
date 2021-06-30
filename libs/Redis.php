@@ -2,6 +2,9 @@
 
 namespace app\core\libs;
 
+use app\core\constant\ErrorCode;
+use app\core\exceptions\RuntimeException;
+
 class Redis extends \Phalcon\Cache\Backend\Redis
 {
     public $prefix = null;
@@ -169,5 +172,23 @@ class Redis extends \Phalcon\Cache\Backend\Redis
             $this->_cache[$key] = $data;
         }
         return $data;
+    }
+
+    public function lock($key, $ttl = 2)
+    {
+        parent::multi();    // 标记一个事务块的开始
+        parent::incr($key, 1);
+        parent::expire($key, $ttl);
+        $res = parent::exec();
+        if ($res[1] == true && $res[0] == 1) {
+            return 1;
+        } else {
+            throw new RuntimeException('lock failed', ErrorCode::RUNTIME_ERROR);
+        }
+    }
+
+    public function unlock($key)
+    {
+        parent::delete($key);
     }
 }
