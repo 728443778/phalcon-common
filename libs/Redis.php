@@ -176,10 +176,14 @@ class Redis extends \Phalcon\Cache\Backend\Redis
 
     public function lock($key, $ttl = 2)
     {
-        parent::multi();    // 标记一个事务块的开始
-        parent::incr($key, 1);
-        parent::expire($key, $ttl);
-        $res = parent::exec();
+        if (empty($this->_redis)) {
+            $this->_connect();
+        }
+        $key = $this->getKey($key);
+        $this->_redis->multi();    // 标记一个事务块的开始
+        $this->_redis->incr($key, 1);
+        $this->_redis->expire($key, $ttl);
+        $res = $this->_redis->exec();
         if ($res[1] == true && $res[0] == 1) {
             return 1;
         } else {
@@ -189,6 +193,10 @@ class Redis extends \Phalcon\Cache\Backend\Redis
 
     public function unlock($key)
     {
-        parent::delete($key);
+        if (empty($this->_redis)) {
+            $this->_connect();
+        }
+        $key = $this->getKey($key);
+        $this->_redis->del($key);
     }
 }
