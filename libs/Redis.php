@@ -63,7 +63,7 @@ class Redis extends \Phalcon\Cache\Backend\Redis
     public function save($keyName = null, $content = null, $lifetime = null, $stopBuffer = true)
     {
         $key = $this->getKey($keyName);
-//        $this->_cache[$key] = $content;
+        //        $this->_cache[$key] = $content;
         return parent::save($key, $content, $lifetime, $stopBuffer);
     }
 
@@ -85,7 +85,7 @@ class Redis extends \Phalcon\Cache\Backend\Redis
      */
     public function getToSession($keyName)
     {
-        if(array_key_exists($keyName, $this->_cache)) {
+        if (array_key_exists($keyName, $this->_cache)) {
             return $this->_cache[$keyName];
         }
         return null;
@@ -116,7 +116,9 @@ class Redis extends \Phalcon\Cache\Backend\Redis
      * @param string $prefix
      * @return array
      */
-    public function queryKeys($prefix = null) {}
+    public function queryKeys($prefix = null)
+    {
+    }
 
     /**
      * Checks if cache exists and it isn't expired
@@ -174,11 +176,21 @@ class Redis extends \Phalcon\Cache\Backend\Redis
         return $data;
     }
 
-    public function lock($key, $ttl = 2)
+    /**
+     * lock key in $ttl seconds
+     * @param string $key
+     * @param integer $ttl
+     * @param bool $failedThorExce 失败是否抛出异常
+     * @return  1 success
+     * @return 0 failed
+     * @throw app\core\exceptions\RuntimeException failed
+     */
+    public function lock($key, $ttl = 2, $failedThorExce = true)
     {
         if (empty($this->_redis)) {
             $this->_connect();
         }
+        $ttl = (int) $ttl;
         $key = $this->getKey($key);
         $this->_redis->multi();    // 标记一个事务块的开始
         $this->_redis->incr($key, 1);
@@ -187,7 +199,10 @@ class Redis extends \Phalcon\Cache\Backend\Redis
         if ($res[1] == true && $res[0] == 1) {
             return 1;
         } else {
-            throw new RuntimeException('lock failed', ErrorCode::RUNTIME_ERROR);
+            if ($failedThorExce) {
+                throw new RuntimeException('lock failed', ErrorCode::RUNTIME_ERROR);
+            }
+            return 0;
         }
     }
 
@@ -197,6 +212,6 @@ class Redis extends \Phalcon\Cache\Backend\Redis
             $this->_connect();
         }
         $key = $this->getKey($key);
-        $this->_redis->del($key);
+        return $this->_redis->del($key);
     }
 }
